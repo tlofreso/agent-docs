@@ -17,6 +17,10 @@ This repository automatically syncs documentation from upstream open source proj
 ## Current Projects
 
 - **FastAPI**: Syncs English documentation from the FastAPI repository (excluding images)
+- **Pydantic**: Syncs documentation from the Pydantic repository (excluding images)
+- **OpenAI Agents**: Syncs documentation, examples, and README from the OpenAI Agents Python SDK repository
+- **SQLModel**: Syncs documentation from the SQLModel repository (excluding images)
+- **Streamlit**: Syncs content documentation from the Streamlit docs repository
 
 ## How It Works
 
@@ -35,7 +39,11 @@ agent-docs/
 │   └── workflows/
 │       └── sync-docs.yml    # GitHub Actions workflow
 ├── docs/
-│   └── fastapi/             # Synced FastAPI documentation
+│   ├── fastapi/             # Synced FastAPI documentation
+│   ├── pydantic/            # Synced Pydantic documentation
+│   ├── openai-agents/       # Synced OpenAI Agents documentation
+│   ├── sqlmodel/            # Synced SQLModel documentation
+│   └── streamlit/           # Synced Streamlit documentation
 ├── scripts/
 │   └── sync-repo.sh         # Sync script
 └── README.md
