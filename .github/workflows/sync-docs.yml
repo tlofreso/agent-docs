@@ -29,7 +29,6 @@ jobs:
 
     - name: Make sync script executable
       run: chmod +x scripts/sync-repo.sh
-    
     - name: Sync FastAPI Docs
       run: |
         ./scripts/sync-repo.sh \
@@ -38,7 +37,7 @@ jobs:
           "docs/fastapi" \
           "docs/en/docs/*" \
           "!docs/en/docs/img"
-
+    
     - name: Sync Pydantic Docs
       run: |
         ./scripts/sync-repo.sh \
@@ -46,9 +45,36 @@ jobs:
           "main" \
           "docs/pydantic" \
           "docs/*" \
-          "!docs/img" \
-          "!docs/logos"
+          "!docs/img"
+    
+    - name: Sync OpenAI Agents Docs
+      run: |
+        ./scripts/sync-repo.sh \
+          "https://github.com/openai/openai-agents-python.git" \
+          "main" \
+          "docs/openai-agents" \
+          "docs/*" \
+          "examples/*" \
+          "README.md" \
+          "!docs/assets"
+    
+    - name: Sync SQLModel Docs
+      run: |
+        ./scripts/sync-repo.sh \
+          "https://github.com/fastapi/sqlmodel.git" \
+          "main" \
+          "docs/sqlmodel" \
+          "docs/*" \
+          "!docs/img"
 
+    - name: Sync Streamlit Docs
+      run: |
+        ./scripts/sync-repo.sh \
+          "https://github.com/streamlit/docs.git" \
+          "main" \
+          "docs/streamlit" \
+          "content/*"
+    
     - name: Check for changes
       id: changes
       run: |
@@ -71,7 +97,7 @@ jobs:
         echo "- **Date**: $(date -u)" >> $GITHUB_STEP_SUMMARY
         echo "- **Changes**: ${{ steps.changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
         if [ "${{ steps.changes.outputs.has_changes }}" == "true" ]; then
-          echo "- **Updated repositories**: FastAPI and Pydantic docs synced" >> $GITHUB_STEP_SUMMARY
+          echo "- **Updated repositories**: FastAPI, Pydantic, OpenAI Agents, SQLModel, and Streamlit docs synced" >> $GITHUB_STEP_SUMMARY
         else
           echo "- **Status**: No changes detected" >> $GITHUB_STEP_SUMMARY
         fi
