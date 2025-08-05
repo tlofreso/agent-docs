@@ -1,0 +1,62 @@
+name: Sync Documentation
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC
+    - cron: '0 6 * * *'
+  workflow_dispatch: # Allow manual triggering
+  push:
+    branches: [main]
+    paths: ['.github/workflows/sync-docs.yml', 'scripts/**']
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    - name: Configure Git
+      run: |
+        git config --global user.name "Documentation Sync Bot"
+        git config --global user.email "action@github.com"
+    
+    - name: Sync FastAPI Docs
+      run: |
+        ./scripts/sync-repo.sh \
+          "https://github.com/fastapi/fastapi.git" \
+          "master" \
+          "docs/fastapi" \
+          "docs/en/docs/*" \
+          "!docs/en/docs/img"
+    
+    - name: Check for changes
+      id: changes
+      run: |
+        if git diff --quiet && git diff --cached --quiet; then
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+        fi
+    
+    - name: Commit and push changes
+      if: steps.changes.outputs.has_changes == 'true'
+      run: |
+        git add .
+        git commit -m "docs: sync documentation from upstream repos $(date -u +%Y-%m-%d)"
+        git push
+    
+    - name: Create summary
+      run: |
+        echo "## Documentation Sync Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Date**: $(date -u)" >> $GITHUB_STEP_SUMMARY
+        echo "- **Changes**: ${{ steps.changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
+        if [ "${{ steps.changes.outputs.has_changes }}" == "true" ]; then
+          echo "- **Updated repositories**: FastAPI docs synced" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "- **Status**: No changes detected" >> $GITHUB_STEP_SUMMARY
+        fi
