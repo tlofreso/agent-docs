@@ -38,7 +38,16 @@ jobs:
           "docs/fastapi" \
           "docs/en/docs/*" \
           "!docs/en/docs/img"
-    
+
+    - name: Sync Pydantic Docs
+      run: |
+        ./scripts/sync-repo.sh \
+          "https://github.com/pydantic/pydantic.git" \
+          "main" \
+          "docs/pydantic" \
+          "docs/*" \
+          "!docs/img"
+
     - name: Check for changes
       id: changes
       run: |
@@ -61,7 +70,7 @@ jobs:
         echo "- **Date**: $(date -u)" >> $GITHUB_STEP_SUMMARY
         echo "- **Changes**: ${{ steps.changes.outputs.has_changes }}" >> $GITHUB_STEP_SUMMARY
         if [ "${{ steps.changes.outputs.has_changes }}" == "true" ]; then
-          echo "- **Updated repositories**: FastAPI docs synced" >> $GITHUB_STEP_SUMMARY
+          echo "- **Updated repositories**: FastAPI and Pydantic docs synced" >> $GITHUB_STEP_SUMMARY
         else
           echo "- **Status**: No changes detected" >> $GITHUB_STEP_SUMMARY
         fi
