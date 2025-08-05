@@ -24,6 +24,9 @@ jobs:
       run: |
         git config --global user.name "Documentation Sync Bot"
         git config --global user.email "action@github.com"
+
+    - name: Make sync script executable
+      run: chmod +x scripts/sync-repo.sh
     
     - name: Sync FastAPI Docs
       run: |
