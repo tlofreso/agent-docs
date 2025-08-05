@@ -46,7 +46,8 @@ jobs:
           "main" \
           "docs/pydantic" \
           "docs/*" \
-          "!docs/img"
+          "!docs/img" \
+          "!docs/logos"
 
     - name: Check for changes
       id: changes
