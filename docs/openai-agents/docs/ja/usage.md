@@ -4,21 +4,21 @@ search:
 ---
 # 使用状況
 
-Agents SDK は、すべての実行についてトークンの使用状況を自動的に追跡します。実行コンテキストから参照でき、コストの監視、上限制御、分析記録に活用できます。
+Agents SDK は、すべての実行におけるトークン使用状況を自動で追跡します。実行コンテキストから参照でき、コストの監視、上限の適用、分析の記録に使えます。
 
 ## 追跡対象
 
-- **requests**: 実行された LLM API 呼び出しの回数
-- **input_tokens**: 送信された入力トークンの合計
-- **output_tokens**: 受信した出力トークンの合計
-- **total_tokens**: 入力 + 出力
-- **details**:
+- **requests** : 実行された LLM API 呼び出し回数
+- **input_tokens** : 送信された合計入力トークン数
+- **output_tokens** : 受信した合計出力トークン数
+- **total_tokens** : 入力 + 出力
+- **details** :
   - `input_tokens_details.cached_tokens`
   - `output_tokens_details.reasoning_tokens`
 
 ## 実行からの使用状況アクセス
 
-`Runner.run(...)` の後、`result.context_wrapper.usage` で使用状況にアクセスします。
+`Runner.run(...)` の後、`result.context_wrapper.usage` から使用状況にアクセスします。
 
 ```python
 result = await Runner.run(agent, "What's the weather in Tokyo?")
@@ -34,7 +34,7 @@ print("Total tokens:", usage.total_tokens)
 
 ## セッションでの使用状況アクセス
 
-`Session`（例: `SQLiteSession`）を使用する場合、同一の実行内でターンをまたいで使用状況が蓄積されます。`Runner.run(...)` の各呼び出しは、その時点での実行の累積使用状況を返します。
+`Session`（例: `SQLiteSession`）を使用する場合、同一の実行内の複数ターンにわたって使用状況が蓄積されます。`Runner.run(...)` の各呼び出しは、その時点での実行の累積使用状況を返します。
 
 ```python
 session = SQLiteSession("my_conversation")
@@ -48,7 +48,7 @@ print(second.context_wrapper.usage.total_tokens)  # includes both turns
 
 ## フックでの使用状況の利用
 
-`RunHooks` を使用している場合、各フックに渡される `context` オブジェクトは `usage` を含みます。これにより、重要なライフサイクルのタイミングで使用状況を記録できます。
+`RunHooks` を使用している場合、各フックに渡される `context` オブジェクトには `usage` が含まれます。これにより、ライフサイクルの要所で使用状況を記録できます。
 
 ```python
 class MyHooks(RunHooks):
