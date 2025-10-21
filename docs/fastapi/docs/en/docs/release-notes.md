@@ -7,6 +7,16 @@ hide:
 
 ## Latest Changes
 
+### Translations
+
+* 🌐 Sync German docs. PR [#14188](https://github.com/fastapi/fastapi/pull/14188) by [@nilslindemann](https://github.com/nilslindemann).
+
+## 0.119.1
+
+### Fixes
+
+* 🐛 Fix internal Pydantic v1 compatibility (warnings) for Python 3.14 and Pydantic 2.12.1. PR [#14186](https://github.com/fastapi/fastapi/pull/14186) by [@svlandeg](https://github.com/svlandeg).
+
 ### Docs
 
 * 📝 Replace `starlette.io` by `starlette.dev` and `uvicorn.org` by `uvicorn.dev`. PR [#14176](https://github.com/fastapi/fastapi/pull/14176) by [@Kludex](https://github.com/Kludex).
