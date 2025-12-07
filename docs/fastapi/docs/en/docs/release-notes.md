@@ -7,6 +7,16 @@ hide:
 
 ## Latest Changes
 
+## 0.124.0
+
+### Features
+
+* 🚸  Improve tracebacks by adding endpoint metadata. PR [#14306](https://github.com/fastapi/fastapi/pull/14306) by [@savannahostrowski](https://github.com/savannahostrowski).
+
+### Internal
+
+* ✏️ Fix typo in `scripts/mkdocs_hooks.py`. PR [#14457](https://github.com/fastapi/fastapi/pull/14457) by [@yujiteshima](https://github.com/yujiteshima).
+
 ## 0.123.10
 
 ### Fixes
