@@ -4,7 +4,7 @@ search:
 ---
 # 快速开始
 
-## 创建项目和虚拟环境
+## 项目与虚拟环境创建
 
 你只需执行一次。
 
@@ -14,9 +14,9 @@ cd my_project
 python -m venv .venv
 ```
 
-### 激活虚拟环境
+### 虚拟环境激活
 
-每次开启新的终端会话时都需要执行。
+每次打开新的终端会话都需要执行。
 
 ```bash
 source .venv/bin/activate
@@ -28,17 +28,17 @@ source .venv/bin/activate
 pip install openai-agents # or `uv add openai-agents`, etc
 ```
 
-### 设置 OpenAI API 密钥
+### 设置 OpenAI API key
 
-如果你还没有，请按照[这些说明](https://platform.openai.com/docs/quickstart#create-and-export-an-api-key)创建一个 OpenAI API 密钥。
+如果你还没有，请按照[这些说明](https://platform.openai.com/docs/quickstart#create-and-export-an-api-key)创建一个 OpenAI API key。
 
 ```bash
 export OPENAI_API_KEY=sk-...
 ```
 
-## 创建你的第一个智能体
+## 首个智能体创建
 
-智能体通过 instructions、名称以及可选配置（例如 `model_config`）来定义。
+智能体由 instructions、名称以及可选配置（例如 `model_config`）定义。
 
 ```python
 from agents import Agent
@@ -51,7 +51,7 @@ agent = Agent(
 
 ## 添加更多智能体
 
-可以用相同方式定义更多智能体。`handoff_descriptions` 为确定任务转移路由提供额外上下文。
+其他智能体也可以用相同方式定义。`handoff_descriptions` 为确定任务转移路由提供额外上下文。
 
 ```python
 from agents import Agent
@@ -69,9 +69,9 @@ math_tutor_agent = Agent(
 )
 ```
 
-## 定义任务转移
+## 任务转移定义
 
-在每个智能体上，你可以定义一个可选的外发任务转移清单，供智能体选择以决定如何推进其任务。
+在每个智能体上，你可以定义一份可用的外发任务转移选项清单，供智能体选择以决定如何推进其任务。
 
 ```python
 triage_agent = Agent(
@@ -81,9 +81,9 @@ triage_agent = Agent(
 )
 ```
 
-## 运行智能体编排
+## 智能体编排运行
 
-让我们检查工作流是否运行，并确认分诊智能体是否在两个专家智能体之间正确路由。
+让我们检查工作流是否运行，并且分诊智能体能在两个专家型智能体之间正确路由。
 
 ```python
 from agents import Runner
@@ -95,7 +95,7 @@ async def main():
 
 ## 添加安全防护措施
 
-你可以定义自定义安全防护措施，用于处理输入或输出。
+你可以定义自定义安全防护措施，以在输入或输出上运行。
 
 ```python
 from agents import GuardrailFunctionOutput, Agent, Runner
@@ -121,9 +121,9 @@ async def homework_guardrail(ctx, agent, input_data):
     )
 ```
 
-## 整体运行
+## 全流程整合
 
-让我们将以上内容整合在一起，使用任务转移和输入安全防护措施运行整个工作流。
+让我们把以上全部整合起来，运行整个工作流，使用任务转移和输入安全防护措施。
 
 ```python
 from agents import Agent, InputGuardrail, GuardrailFunctionOutput, Runner
@@ -190,9 +190,9 @@ if __name__ == "__main__":
     asyncio.run(main())
 ```
 
-## 查看你的追踪
+## 追踪查看
 
-要回顾智能体运行期间发生的事情，请前往 [OpenAI 仪表板中的追踪查看器](https://platform.openai.com/traces)查看你的智能体运行追踪。
+要回顾智能体运行期间发生的事情，请前往 [OpenAI Dashboard 的 Trace viewer](https://platform.openai.com/traces) 查看你的运行追踪记录。
 
 ## 后续步骤
 

@@ -2,14 +2,14 @@
 search:
   exclude: true
 ---
-# 퀵스타트
+# 빠른 시작
 
-실시간 에이전트는 OpenAI의 Realtime API를 사용해 AI 에이전트와 음성 대화를 가능하게 합니다. 이 가이드는 첫 실시간 음성 에이전트를 만드는 과정을 안내합니다.
+실시간 에이전트는 OpenAI의 Realtime API를 사용해 AI 에이전트와의 음성 대화를 가능하게 합니다. 이 가이드는 첫 실시간 음성 에이전트를 만드는 과정을 안내합니다.
 
 !!! warning "베타 기능"
-실시간 에이전트는 베타 단계입니다. 구현을 개선하는 동안 일부 호환성 깨짐이 발생할 수 있습니다.
+실시간 에이전트는 베타 단계입니다. 구현을 개선하는 과정에서 호환성 깨짐이 발생할 수 있습니다.
 
-## 사전 준비 사항
+## 필수 조건
 
 - Python 3.9 이상
 - OpenAI API 키
@@ -23,9 +23,9 @@ search:
 pip install openai-agents
 ```
 
-## 첫 실시간 에이전트 만들기
+## 첫 실시간 에이전트 생성
 
-### 1. 필요한 구성요소 가져오기
+### 1. 필요한 구성요소 임포트
 
 ```python
 import asyncio
@@ -111,7 +111,7 @@ def _truncate_str(s: str, max_length: int) -> str:
 
 ## 전체 예제
 
-다음은 동작하는 전체 예제입니다:
+다음은 완전한 동작 예제입니다:
 
 ```python
 import asyncio
@@ -211,15 +211,15 @@ if __name__ == "__main__":
 
 ## 다음 단계
 
-- [실시간 에이전트 더 알아보기](guide.md)
-- [examples/realtime](https://github.com/openai/openai-agents-python/tree/main/examples/realtime) 폴더의 동작하는 예제 확인
-- 에이전트에 tools 추가
-- 에이전트 간 핸드오프 구현
-- 안전을 위한 가드레일 설정
+- [실시간 에이전트에 대해 더 알아보기](guide.md)
+- [examples/realtime](https://github.com/openai/openai-agents-python/tree/main/examples/realtime) 폴더의 동작하는 예제를 확인하세요
+- 에이전트에 도구를 추가하세요
+- 에이전트 간 핸드오프를 구현하세요
+- 안전을 위한 가드레일을 설정하세요
 
 ## 인증
 
-환경에 OpenAI API 키가 설정되어 있는지 확인하세요:
+환경 변수에 OpenAI API 키가 설정되어 있는지 확인하세요:
 
 ```bash
 export OPENAI_API_KEY="your-api-key-here"
