@@ -2,17 +2,17 @@
 search:
   exclude: true
 ---
-# 通过 LiteLLM 使用任意模型
+# 基于 LiteLLM 的通用模型使用
 
 !!! note
 
-    LiteLLM 集成处于测试阶段。你可能会在部分模型提供方（尤其是较小的提供方）上遇到问题。请通过 [Github issues](https://github.com/openai/openai-agents-python/issues) 报告问题，我们会尽快修复。
+    LiteLLM 集成处于测试阶段。你在使用部分模型提供方（尤其是规模较小的）时可能会遇到问题。请通过 [Github issues](https://github.com/openai/openai-agents-python/issues) 报告问题，我们会尽快修复。
 
-[LiteLLM](https://docs.litellm.ai/docs/) 是一个库，可通过统一接口使用 100+ 模型。我们在 Agents SDK 中加入了 LiteLLM 集成，以便你使用任意 AI 模型。
+[LiteLLM](https://docs.litellm.ai/docs/) 是一个库，可通过统一接口使用 100+ 模型。我们在 Agents SDK 中加入了 LiteLLM 集成，让你可以使用任意 AI 模型。
 
 ## 设置
 
-你需要确保可用 `litellm`。可通过安装可选的 `litellm` 依赖组来完成：
+你需要确保可用的 `litellm`。可通过安装可选的 `litellm` 依赖组来完成：
 
 ```bash
 pip install "openai-agents[litellm]"
@@ -22,13 +22,13 @@ pip install "openai-agents[litellm]"
 
 ## 示例
 
-这是一个可直接运行的示例。运行后会提示输入模型名称和 API key。例如，你可以输入：
+这是一个可直接运行的示例。运行后会提示你输入模型名称和 API Key。例如，你可以输入：
 
-- `openai/gpt-4.1` 作为模型，并提供你的 OpenAI API key
-- `anthropic/claude-3-5-sonnet-20240620` 作为模型，并提供你的 Anthropic API key
+- `openai/gpt-4.1` 作为模型，并提供你的 OpenAI API Key
+- `anthropic/claude-3-5-sonnet-20240620` 作为模型，并提供你的 Anthropic API Key
 - 等等
 
-LiteLLM 支持的完整模型列表请见 [litellm providers docs](https://docs.litellm.ai/docs/providers)。
+LiteLLM 支持的完整模型列表见 [litellm providers docs](https://docs.litellm.ai/docs/providers)。
 
 ```python
 from __future__ import annotations
@@ -76,9 +76,9 @@ if __name__ == "__main__":
     asyncio.run(main(model, api_key))
 ```
 
-## 使用数据追踪
+## 用量数据追踪
 
-如果你希望 LiteLLM 的响应填充 Agents SDK 的使用指标，请在创建智能体时传入 `ModelSettings(include_usage=True)`。
+如果你希望将 LiteLLM 的响应纳入 Agents SDK 的用量指标，在创建智能体时传入 `ModelSettings(include_usage=True)`。
 
 ```python
 from agents import Agent, ModelSettings
@@ -91,4 +91,14 @@ agent = Agent(
 )
 ```
 
-设置 `include_usage=True` 后，LiteLLM 请求会像内置的 OpenAI 模型一样，通过 `result.context_wrapper.usage` 报告 token 和请求计数。
+在 `include_usage=True` 的情况下，LiteLLM 请求会通过 `result.context_wrapper.usage` 报告 token 与请求计数，与内置的 OpenAI 模型一致。
+
+## 故障排查
+
+如果你在 LiteLLM 响应中看到来自 Pydantic 的序列化警告，可通过设置以下选项启用一项小的兼容性补丁：
+
+```bash
+export OPENAI_AGENTS_ENABLE_LITELLM_SERIALIZER_PATCH=true
+```
+
+该可选标志会抑制已知的 LiteLLM 序列化警告，同时保持正常行为。如果不需要，可将其关闭（不设置或设为 `false`）。
