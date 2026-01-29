@@ -16,14 +16,11 @@ from agents import (
     trace,
 )
 from agents.items import ToolApprovalItem
-from agents.run_context import RunContextWrapper
-from agents.tool import ShellOnApprovalFunctionResult
-
-SHELL_AUTO_APPROVE = os.environ.get("SHELL_AUTO_APPROVE") == "1"
+from examples.auto_mode import confirm_with_fallback, is_auto_mode
 
 
 class ShellExecutor:
-    """Executes shell commands; approval is handled via ShellTool."""
+    """Executes shell commands; approvals are handled manually via interruptions."""
 
     def __init__(self, cwd: Path | None = None):
         self.cwd = Path(cwd or Path.cwd())
@@ -74,55 +71,71 @@ class ShellExecutor:
         )
 
 
-async def prompt_shell_approval(commands: Sequence[str]) -> bool:
-    """Simple CLI prompt for shell approvals."""
-    if SHELL_AUTO_APPROVE:
-        return True
+async def prompt_shell_approval(commands: Sequence[str]) -> tuple[bool, bool]:
+    """Prompt for approval and optional always-approve choice."""
     print("Shell command approval required:")
     for entry in commands:
-        print(" ", entry)
-    response = input("Proceed? [y/N] ").strip().lower()
-    return response in {"y", "yes"}
+        print(f"  {entry}")
+    auto_mode = is_auto_mode()
+    decision = confirm_with_fallback("Approve? [y/N]: ", default=auto_mode)
+    always = False
+    if decision:
+        always = confirm_with_fallback(
+            "Approve all future shell calls? [y/N]: ",
+            default=auto_mode,
+        )
+    return decision, always
+
+
+def _extract_commands(approval_item: ToolApprovalItem) -> Sequence[str]:
+    raw = approval_item.raw_item
+    if isinstance(raw, dict):
+        action = raw.get("action", {})
+        if isinstance(action, dict):
+            commands = action.get("commands", [])
+            if isinstance(commands, Sequence):
+                return [str(cmd) for cmd in commands]
+    action_obj = getattr(raw, "action", None)
+    if action_obj and hasattr(action_obj, "commands"):
+        return list(action_obj.commands)
+    return ()
 
 
 async def main(prompt: str, model: str) -> None:
-    with trace("shell_example"):
+    with trace("shell_hitl_example"):
         print(f"[info] Using model: {model}")
 
-        async def on_shell_approval(
-            _context: RunContextWrapper, approval_item: ToolApprovalItem
-        ) -> ShellOnApprovalFunctionResult:
-            raw = approval_item.raw_item
-            commands: Sequence[str] = ()
-            if isinstance(raw, dict):
-                action = raw.get("action", {})
-                if isinstance(action, dict):
-                    commands = action.get("commands", [])
-            else:
-                action_obj = getattr(raw, "action", None)
-                if action_obj and hasattr(action_obj, "commands"):
-                    commands = action_obj.commands
-            approved = await prompt_shell_approval(commands)
-            return {"approve": approved, "reason": "user rejected" if not approved else "approved"}
-
         agent = Agent(
-            name="Shell Assistant",
+            name="Shell HITL Assistant",
             model=model,
             instructions=(
                 "You can run shell commands using the shell tool. "
-                "Keep responses concise and include command output when helpful."
+                "Ask for approval before running commands."
             ),
             tools=[
                 ShellTool(
                     executor=ShellExecutor(),
                     needs_approval=True,
-                    on_approval=on_shell_approval,
                 )
             ],
             model_settings=ModelSettings(tool_choice="required"),
         )
 
         result = await Runner.run(agent, prompt)
+
+        while result.interruptions:
+            print("\n== Pending approvals ==")
+            state = result.to_state()
+            for interruption in result.interruptions:
+                commands = _extract_commands(interruption)
+                approved, always = await prompt_shell_approval(commands)
+                if approved:
+                    state.approve(interruption, always_approve=always)
+                else:
+                    state.reject(interruption, always_reject=always)
+
+            result = await Runner.run(agent, state)
+
         print(f"\nFinal response:\n{result.final_output}")
 
 
@@ -130,12 +143,12 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--prompt",
-        default="Show the list of files in the current directory.",
+        default="List the files in the current directory and show the current working directory.",
         help="Instruction to send to the agent.",
     )
     parser.add_argument(
         "--model",
-        default="gpt-5.2",
+        default="gpt-5.1",
     )
     args = parser.parse_args()
     asyncio.run(main(args.prompt, args.model))
