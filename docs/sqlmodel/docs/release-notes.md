@@ -2,8 +2,14 @@
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Fix async example in `session.execute()` docstring & deprecation message. PR [#1643](https://github.com/fastapi/sqlmodel/pull/1643) by [@DanielLeviLucas](https://github.com/DanielLeviLucas).
+* 📝 Update `management-tasks.md` to be in line with `management-tasks.md` in FastAPI repo. PR [#1743](https://github.com/fastapi/sqlmodel/pull/1743) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ### Internal
 
+* ⬆ Bump fastapi from 0.128.0 to 0.128.1. PR [#1742](https://github.com/fastapi/sqlmodel/pull/1742) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ✅ Update `ValidationError` schema in FastAPI-related tests to be compatible with FastAPI 0.128.1+. PR [#1744](https://github.com/fastapi/sqlmodel/pull/1744) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump ruff from 0.14.14 to 0.15.0. PR [#1740](https://github.com/fastapi/sqlmodel/pull/1740) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Add generate-readme to pre-commit. PR [#1741](https://github.com/fastapi/sqlmodel/pull/1741) by [@tiangolo](https://github.com/tiangolo).
