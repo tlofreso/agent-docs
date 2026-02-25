@@ -8,6 +8,11 @@
 
 ### Internal
 
+* ⬆ Bump pytest from 8.4.2 to 9.0.2. PR [#1780](https://github.com/fastapi/sqlmodel/pull/1780) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump mkdocstrings[python] from 0.30.1 to 1.0.3. PR [#1776](https://github.com/fastapi/sqlmodel/pull/1776) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump typer from 0.23.2 to 0.24.1. PR [#1777](https://github.com/fastapi/sqlmodel/pull/1777) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump ruff from 0.15.1 to 0.15.2. PR [#1779](https://github.com/fastapi/sqlmodel/pull/1779) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump fastapi from 0.129.0 to 0.132.0. PR [#1778](https://github.com/fastapi/sqlmodel/pull/1778) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Update all dependencies to use `griffelib` instead of `griffe`. PR [#1775](https://github.com/fastapi/sqlmodel/pull/1775) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump mkdocs-material from 9.7.1 to 9.7.2. PR [#1764](https://github.com/fastapi/sqlmodel/pull/1764) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pillow from 11.3.0 to 12.1.1. PR [#1770](https://github.com/fastapi/sqlmodel/pull/1770) by [@dependabot[bot]](https://github.com/apps/dependabot).
