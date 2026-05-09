@@ -359,7 +359,7 @@ async def _print_stream_details(result: RunResultStreaming) -> None:
 async def main(model_name: str) -> None:
     model = RecordingModel(model_name)
     with tempfile.TemporaryDirectory(prefix="agents-skills-") as temp_dir:
-        skills_root = Path(temp_dir) / "skills"
+        skills_root = Path(temp_dir).resolve() / "skills"
         _write_local_skill(skills_root)
 
         agent = _build_agent(model, skills_root)
