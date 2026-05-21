@@ -9,6 +9,7 @@ hide:
 
 ### Docs
 
+* 📝 Update security policy. PR [#15577](https://github.com/fastapi/fastapi/pull/15577) by [@tiangolo](https://github.com/tiangolo).
 * 🍱 Update sponsors: TalorData image. PR [#15562](https://github.com/fastapi/fastapi/pull/15562) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update docs, simplify usage of admonitions, only default ones. PR [#15553](https://github.com/fastapi/fastapi/pull/15553) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Fix image URLs in `index.md`. PR [#15534](https://github.com/fastapi/fastapi/pull/15534) by [@YuriiMotov](https://github.com/YuriiMotov).
@@ -19,6 +20,7 @@ hide:
 
 ### Translations
 
+* 🌐 Improve translation consistency in `‎docs/pt/docs/advanced/generate-clients.md‎`. PR [#15456](https://github.com/fastapi/fastapi/pull/15456) by [@Will-thom](https://github.com/Will-thom).
 * 🌐 Update translations for ja (update-outdated). PR [#15530](https://github.com/fastapi/fastapi/pull/15530) by [@tiangolo](https://github.com/tiangolo).
 * 🌐 Update translations for uk (update-outdated). PR [#15529](https://github.com/fastapi/fastapi/pull/15529) by [@tiangolo](https://github.com/tiangolo).
 * 🌐 Update translations for pt (update-outdated). PR [#15528](https://github.com/fastapi/fastapi/pull/15528) by [@tiangolo](https://github.com/tiangolo).
@@ -34,6 +36,9 @@ hide:
 
 ### Internal
 
+* ⬆ Bump urllib3 from 2.6.3 to 2.7.0. PR [#15502](https://github.com/fastapi/fastapi/pull/15502) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump idna from 3.11 to 3.15. PR [#15565](https://github.com/fastapi/fastapi/pull/15565) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump cloudflare/wrangler-action from 3.15.0 to 4.0.0. PR [#15571](https://github.com/fastapi/fastapi/pull/15571) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Migrate docs from MkDocs to Zensical. PR [#15563](https://github.com/fastapi/fastapi/pull/15563) by [@tiangolo](https://github.com/tiangolo).
 * 🔒️ Only allow team members to modify dependencies. PR [#15548](https://github.com/fastapi/fastapi/pull/15548) by [@svlandeg](https://github.com/svlandeg).
 * ⬆ Bump actions/add-to-project from 1.0.2 to 2.0.0. PR [#15490](https://github.com/fastapi/fastapi/pull/15490) by [@dependabot[bot]](https://github.com/apps/dependabot).
