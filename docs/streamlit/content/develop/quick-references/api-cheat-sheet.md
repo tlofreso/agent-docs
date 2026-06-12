@@ -323,6 +323,7 @@ st.file_uploader("Upload a CSV")
 st.audio_input("Record a voice message")
 st.camera_input("Take a picture")
 st.color_picker("Pick a color")
+st.pagination(10)
 
 # Use widgets' returned values in variables:
 for i in range(int(st.number_input("Num:"))):
@@ -549,6 +550,17 @@ st.context.theme.type
 st.context.timezone
 st.context.timezone_offset
 st.context.url
+```
+
+</CodeTile>
+
+<CodeTile>
+
+#### Configure the app server
+
+```python hideHeader
+# Expose the underlying Starlette app
+app = st.App()
 ```
 
 </CodeTile>

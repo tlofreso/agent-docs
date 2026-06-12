@@ -1109,6 +1109,19 @@ name = st.text_input("First name")
 ```
 
 </RefCard>
+<RefCard href="/develop/api-reference/widgets/st.pagination">
+
+<Image pure alt="screenshot" src="/images/api/pagination.jpg" />
+
+<h4>Pagination</h4>
+
+Display a pagination widget.
+
+```python
+page = st.pagination(10)
+```
+
+</RefCard>
 <RefCard href="/develop/api-reference/widgets/st.audio_input">
 
 <Image pure alt="screenshot" src="/images/api/audio_input.jpg" />
@@ -1996,7 +2009,25 @@ rain(emoji="🎈", font_size=54,
 
 ## App logic and configuration
 
-### Authentication and user info
+### App server
+
+<br />
+
+<TileContainer>
+<RefCard href="/develop/api-reference/server/st.app">
+
+<h4>App</h4>
+
+Configure the underlying Starlette server for your app.
+
+```python
+app = st.App()
+```
+
+</RefCard>
+</TileContainer>
+
+### Authentication
 
 <br />
 

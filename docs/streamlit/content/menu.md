@@ -368,6 +368,8 @@ site_menu:
     url: https://docs.streamlit.io/develop/api-reference/data/st.data_editor
   - category: Develop / API reference / Input widgets / st.file_uploader
     url: /develop/api-reference/widgets/st.file_uploader
+  - category: Develop / API reference / Input widgets / st.pagination
+    url: /develop/api-reference/widgets/st.pagination
   - category: Develop / API reference / Media elements
     url: /develop/api-reference/media
   - category: Develop / API reference / Media elements / st.audio
@@ -443,13 +445,17 @@ site_menu:
   - category: Develop / API reference / Third-party components
     url: https://streamlit.io/components
   - category: Develop / API reference / APPLICATION LOGIC
-  - category: Develop / API reference / Authentication and user info
+  - category: Develop / API reference / App server
+    url: /develop/api-reference/server
+  - category: Develop / API reference / App server / st.App
+    url: /develop/api-reference/server/st.app
+  - category: Develop / API reference / Authentication
     url: /develop/api-reference/user
-  - category: Develop / API reference / Authentication and user info / st.login
+  - category: Develop / API reference / Authentication / st.login
     url: /develop/api-reference/user/st.login
-  - category: Develop / API reference / Authentication and user info / st.logout
+  - category: Develop / API reference / Authentication / st.logout
     url: /develop/api-reference/user/st.logout
-  - category: Develop / API reference / Authentication and user info / st.user
+  - category: Develop / API reference / Authentication / st.user
     url: /develop/api-reference/user/st.user
   - category: Develop / API reference / Navigation and pages
     url: /develop/api-reference/navigation
