@@ -7,6 +7,12 @@ hide:
 
 ## Latest Changes
 
+## 0.137.2 (2026-06-18)
+
+### Features
+
+* ✨ Add `iter_route_contexts()` for advanced use cases that used to use `router.routes` (e.g. Jupyverse). PR [#15785](https://github.com/fastapi/fastapi/pull/15785) by [@tiangolo](https://github.com/tiangolo).
+
 ### Translations
 
 * 🌐 Fix broken Markdown in Korean custom response docs. PR [#15774](https://github.com/fastapi/fastapi/pull/15774) by [@kooqooo](https://github.com/kooqooo).
@@ -24,6 +30,8 @@ hide:
 
 ### Internal
 
+* 🔧 Update sponsors: add BairesDev. PR [#15787](https://github.com/fastapi/fastapi/pull/15787) by [@tiangolo](https://github.com/tiangolo).
+* 🔨 Update sponsors script to simplify previews. PR [#15786](https://github.com/fastapi/fastapi/pull/15786) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 7 updates. PR [#15777](https://github.com/fastapi/fastapi/pull/15777) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump cryptography from 46.0.7 to 48.0.1. PR [#15779](https://github.com/fastapi/fastapi/pull/15779) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump aiohttp from 3.14.0 to 3.14.1. PR [#15781](https://github.com/fastapi/fastapi/pull/15781) by [@dependabot[bot]](https://github.com/apps/dependabot).
