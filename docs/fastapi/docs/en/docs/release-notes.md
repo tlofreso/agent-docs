@@ -7,6 +7,12 @@ hide:
 
 ## Latest Changes
 
+## 0.138.1 (2026-06-25)
+
+### Refactors
+
+* ♻️ Refactor Library Skills, make info easier to find for agents. PR [#15841](https://github.com/fastapi/fastapi/pull/15841) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * 👷 Simplify pull request workflow triggers. PR [#15836](https://github.com/fastapi/fastapi/pull/15836) by [@tiangolo](https://github.com/tiangolo).
