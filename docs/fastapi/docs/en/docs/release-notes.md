@@ -7,8 +7,15 @@ hide:
 
 ## Latest Changes
 
+## 0.138.2 (2026-06-29)
+
+### Refactors
+
+* ♻️ Make `app.frontend()` return 404 for methods other than `GET` or `HEAD` with no static file matches. PR [#15863](https://github.com/fastapi/fastapi/pull/15863) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
+* 🔧 Update sponsors: remove Stainless. PR [#15862](https://github.com/fastapi/fastapi/pull/15862) by [@tiangolo](https://github.com/tiangolo).
 * ♻️ Refactor how sponsors data is handled for banners. PR [#15852](https://github.com/fastapi/fastapi/pull/15852) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.138.1 (2026-06-25)
