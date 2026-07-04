@@ -7,6 +7,17 @@ hide:
 
 ## Latest Changes
 
+### Translations
+
+* 🌐 Update translations for hi (add-missing). PR [#15797](https://github.com/fastapi/fastapi/pull/15797) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update `llm-prompt.md` for Hindi. PR [#15810](https://github.com/fastapi/fastapi/pull/15810) by [@YuriiMotov](https://github.com/YuriiMotov).
+* 🌐 Fix language-specific translation prompt for Russian language. PR [#15924](https://github.com/fastapi/fastapi/pull/15924) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+### Internal
+
+* ⬆️ Update issue-manager to 0.8.1. PR [#15928](https://github.com/fastapi/fastapi/pull/15928) by [@tiangolo](https://github.com/tiangolo).
+* ⬆️ Update latest-changes to 0.6.1. PR [#15926](https://github.com/fastapi/fastapi/pull/15926) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.139.0 (2026-07-01)
 
 ### Features
