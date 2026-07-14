@@ -647,6 +647,19 @@ st.graphviz_chart(my_graphviz_spec)
 ```
 
 </RefCard>
+<RefCard href="/develop/api-reference/charts/st.mermaid_chart">
+
+<Image pure alt="screenshot" src="/images/api/mermaid_chart.jpg" />
+
+<h4>Mermaid chart</h4>
+
+Display a Mermaid diagram.
+
+```python
+st.mermaid_chart("graph LR\n  A --> B")
+```
+
+</RefCard>
 </TileContainer>
 
 <ComponentSlider>
@@ -1834,6 +1847,20 @@ Display output of long-running tasks in a container.
 
 ```python
 with st.status('Running'):
+  do_something_slow()
+```
+
+</RefCard>
+<RefCard href="/develop/api-reference/status/st.skeleton">
+
+<Image pure alt="screenshot" src="/images/api/skeleton.jpg" />
+
+<h4>Skeleton</h4>
+
+Display a skeleton placeholder while loading.
+
+```python
+with st.skeleton(height=200):
   do_something_slow()
 ```
 

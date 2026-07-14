@@ -230,10 +230,14 @@ site_menu:
     url: /develop/api-reference/data/st.column_config/st.column_config.column
   - category: Develop / API reference / Data elements / st.column_config / Text column
     url: /develop/api-reference/data/st.column_config/st.column_config.textcolumn
+  - category: Develop / API reference / Data elements / st.column_config / Markdown column
+    url: /develop/api-reference/data/st.column_config/st.column_config.markdowncolumn
   - category: Develop / API reference / Data elements / st.column_config / Number column
     url: /develop/api-reference/data/st.column_config/st.column_config.numbercolumn
   - category: Develop / API reference / Data elements / st.column_config / Checkbox column
     url: /develop/api-reference/data/st.column_config/st.column_config.checkboxcolumn
+  - category: Develop / API reference / Data elements / st.column_config / Button column
+    url: /develop/api-reference/data/st.column_config/st.column_config.buttoncolumn
   - category: Develop / API reference / Data elements / st.column_config / Selectbox column
     url: /develop/api-reference/data/st.column_config/st.column_config.selectboxcolumn
   - category: Develop / API reference / Data elements / st.column_config / Multiselect column
@@ -296,6 +300,8 @@ site_menu:
     visible: false
   - category: Develop / API reference / Chart elements / st.graphviz_chart
     url: /develop/api-reference/charts/st.graphviz_chart
+  - category: Develop / API reference / Chart elements / st.mermaid_chart
+    url: /develop/api-reference/charts/st.mermaid_chart
   - category: Develop / API reference / Chart elements / st.plotly_chart
     url: /develop/api-reference/charts/st.plotly_chart
   - category: Develop / API reference / Chart elements / st.pydeck_chart
@@ -436,6 +442,8 @@ site_menu:
     url: /develop/api-reference/status/st.spinner
   - category: Develop / API reference / Status elements / st.status
     url: /develop/api-reference/status/st.status
+  - category: Develop / API reference / Status elements / st.skeleton
+    url: /develop/api-reference/status/st.skeleton
   - category: Develop / API reference / Status elements / st.toast
     url: /develop/api-reference/status/st.toast
   - category: Develop / API reference / Status elements / st.balloons
