@@ -7,8 +7,23 @@ hide:
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Fix topic repository list not being displayed and `skip_users` not being applied. PR [#15995](https://github.com/fastapi/fastapi/pull/15995) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ### Translations
 
+* 🌐 Update translations for tr (update-outdated). PR [#16005](https://github.com/fastapi/fastapi/pull/16005) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for zh-hant (update-outdated). PR [#15996](https://github.com/fastapi/fastapi/pull/15996) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for fr (update-outdated). PR [#16006](https://github.com/fastapi/fastapi/pull/16006) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for de (update-outdated). PR [#15999](https://github.com/fastapi/fastapi/pull/15999) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for ko (update-outdated). PR [#16004](https://github.com/fastapi/fastapi/pull/16004) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for zh (update-outdated). PR [#16001](https://github.com/fastapi/fastapi/pull/16001) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for uk (update-outdated). PR [#16003](https://github.com/fastapi/fastapi/pull/16003) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for ja (update-outdated). PR [#15998](https://github.com/fastapi/fastapi/pull/15998) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for pt (update-outdated). PR [#16000](https://github.com/fastapi/fastapi/pull/16000) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for es (update-outdated). PR [#15997](https://github.com/fastapi/fastapi/pull/15997) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update translations for ru (update-outdated). PR [#16002](https://github.com/fastapi/fastapi/pull/16002) by [@tiangolo](https://github.com/tiangolo).
 * 🌐 Update translations for hi (add-missing). PR [#15990](https://github.com/fastapi/fastapi/pull/15990) by [@tiangolo](https://github.com/tiangolo).
 * 🌐 Update translations for hi (add-missing). PR [#15925](https://github.com/fastapi/fastapi/pull/15925) by [@tiangolo](https://github.com/tiangolo).
 * 🌐 Update translations for hi (add-missing). PR [#15797](https://github.com/fastapi/fastapi/pull/15797) by [@tiangolo](https://github.com/tiangolo).
