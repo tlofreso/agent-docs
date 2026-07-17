@@ -9,6 +9,26 @@ hide:
 
 ### Docs
 
+* 📝 Restructure FastAPI People and related pages. PR [#16015](https://github.com/fastapi/fastapi/pull/16015) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 🔥 Remove now-obsolete scripts to generate data for FastAPI People. PR [#16016](https://github.com/fastapi/fastapi/pull/16016) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.139.2 (2026-07-16)
+
+### Fixes
+
+* 🐛 Refactor router route building to make it thread-safe, mainly relevant for tests running in parallel threads (uncommon). PR [#16013](https://github.com/fastapi/fastapi/pull/16013) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.139.1 (2026-07-16)
+
+### Fixes
+
+* 🐛 Fix frontend fallback support for doted paths like `/users/john.doe`. PR [#16011](https://github.com/fastapi/fastapi/pull/16011) by [@tiangolo](https://github.com/tiangolo).
+
+### Docs
+
 * 📝 Fix topic repository list not being displayed and `skip_users` not being applied. PR [#15995](https://github.com/fastapi/fastapi/pull/15995) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ### Translations
