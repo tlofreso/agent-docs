@@ -7,6 +7,57 @@ hide:
 
 ## Latest Changes
 
+## 0.140.7 (2026-07-27)
+
+### Refactors
+
+* ⚡️ Avoid flattening dependencies for OpenAPI. PR [#16076](https://github.com/fastapi/fastapi/pull/16076) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ⬆️ Upgrade latest-changes to 0.7.1. PR [#16077](https://github.com/fastapi/fastapi/pull/16077) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Add OpenAPI dependency benchmarks. PR [#16075](https://github.com/fastapi/fastapi/pull/16075) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.140.6 (2026-07-27)
+
+### Refactors
+
+* ⚡️ Avoid flattening dependencies for request parameters, mainly for OpenAPI. PR [#16073](https://github.com/fastapi/fastapi/pull/16073) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.140.5 (2026-07-27)
+
+### Refactors
+
+* ⚡️ Avoid flattening dependencies for body fields. PR [#16071](https://github.com/fastapi/fastapi/pull/16071) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.140.4 (2026-07-27)
+
+### Refactors
+
+* ⚡️ Skip unused dependency repeat bookkeeping. PR [#16069](https://github.com/fastapi/fastapi/pull/16069) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.140.3 (2026-07-27)
+
+### Refactors
+
+* ⚡️ Avoid repeated dependency flattening in OpenAPI. PR [#16067](https://github.com/fastapi/fastapi/pull/16067) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.140.2 (2026-07-27)
+
+### Refactors
+
+* ⚡️ Stop retaining flat dependency trees. PR [#16065](https://github.com/fastapi/fastapi/pull/16065) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 👷 Add new memory benchmark. PR [#16064](https://github.com/fastapi/fastapi/pull/16064) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.140.1 (2026-07-27)
+
+### Refactors
+
+* ♻️ Update the lru_cache limit for dependencies to account for large apps. PR [#16062](https://github.com/fastapi/fastapi/pull/16062) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.140.0 (2026-07-24)
 
 ### Refactors
