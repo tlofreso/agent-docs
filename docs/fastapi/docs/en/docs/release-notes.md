@@ -7,6 +7,59 @@ hide:
 
 ## Latest Changes
 
+## 0.140.13 (2026-07-28)
+
+### Fixes
+
+* 🐛 Fix `status_code` being ignored for SSE and JSONL streaming endpoints. PR [#15937](https://github.com/fastapi/fastapi/pull/15937) by [@SAURABHSALVE](https://github.com/SAURABHSALVE).
+
+### Docs
+
+* 📝 Fix `format_sse_event` docstring rendering of `\n\n` terminator. PR [#15613](https://github.com/fastapi/fastapi/pull/15613) by [@AshNicolus](https://github.com/AshNicolus).
+* 📝 Add API reference page for fastapi.sse. PR [#15930](https://github.com/fastapi/fastapi/pull/15930) by [@SAURABHSALVE](https://github.com/SAURABHSALVE).
+
+## 0.140.12 (2026-07-28)
+
+### Fixes
+
+* 🐛 Fix line splitting in `format_sse_event` to comply with SSE spec. PR [#15515](https://github.com/fastapi/fastapi/pull/15515) by [@Zawwarsami16](https://github.com/Zawwarsami16).
+
+## 0.140.11 (2026-07-28)
+
+### Fixes
+
+* 🐛 Fix `response_model_*` params ignored for non-generator endpoints with `Iterable[..]` return type. PR [#15093](https://github.com/fastapi/fastapi/pull/15093) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.140.10 (2026-07-28)
+
+### Fixes
+
+* 🐛 Fix handling sequences with nested Annotated types. PR [#14874](https://github.com/fastapi/fastapi/pull/14874) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+### Internal
+
+* 🐛 Accept any base test failure as regression. PR [#16092](https://github.com/fastapi/fastapi/pull/16092) by [@tiangolo](https://github.com/tiangolo).
+* 🐛 Preserve pytest exit code in regression check. PR [#16091](https://github.com/fastapi/fastapi/pull/16091) by [@tiangolo](https://github.com/tiangolo).
+* ✅ Test PR regressions against base code. PR [#16090](https://github.com/fastapi/fastapi/pull/16090) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.140.9 (2026-07-28)
+
+### Fixes
+
+* 🐛 Fix `exclude_defaults` not propagated to dict keys and values in `jsonable_encoder`. PR [#16043](https://github.com/fastapi/fastapi/pull/16043) by [@MBGrao](https://github.com/MBGrao).
+
+### Internal
+
+* ⬆ Bump gitpython from 3.1.50 to 3.1.54. PR [#16047](https://github.com/fastapi/fastapi/pull/16047) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pymdown-extensions from 10.21.3 to 11.0. PR [#16048](https://github.com/fastapi/fastapi/pull/16048) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pyasn1 from 0.6.3 to 0.6.4. PR [#16045](https://github.com/fastapi/fastapi/pull/16045) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.140.8 (2026-07-28)
+
+### Fixes
+
+* 🐛 Fix stream item type lost when using `include_router()`. PR [#15077](https://github.com/fastapi/fastapi/pull/15077) by [@alex-raw](https://github.com/alex-raw).
+
 ## 0.140.7 (2026-07-27)
 
 ### Refactors
