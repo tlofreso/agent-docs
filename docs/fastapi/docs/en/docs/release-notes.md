@@ -7,6 +7,22 @@ hide:
 
 ## Latest Changes
 
+## 0.141.1 (2026-07-29)
+
+### Fixes
+
+* 🐛 Fix support for background tasks and headers from dependencies in `app.frontend()`. PR [#16105](https://github.com/fastapi/fastapi/pull/16105) by [@tiangolo](https://github.com/tiangolo).
+
+### Docs
+
+* 📝 Document `FASTAPI_ENV` in FastAPI CLI guide. PR [#16104](https://github.com/fastapi/fastapi/pull/16104) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.141.0 (2026-07-29)
+
+### Features
+
+* ✨ Add `app.frontend(check_dir="auto")`, to make local development more convenient with `fastapi dev`. PR [#16102](https://github.com/fastapi/fastapi/pull/16102) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.140.13 (2026-07-28)
 
 ### Fixes
