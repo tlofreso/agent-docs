@@ -4,6 +4,7 @@
 
 ### Docs
 
+* 🐛 Use buttons for Termynal controls. PR [#2063](https://github.com/fastapi/sqlmodel/pull/2063) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add Library Skills documentation. PR [#2052](https://github.com/fastapi/sqlmodel/pull/2052) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Recommend uv projects by default in docs. PR [#2050](https://github.com/fastapi/sqlmodel/pull/2050) by [@tiangolo](https://github.com/tiangolo).
 * 🐛 Prevent Termynal controls from scrolling. PR [#2051](https://github.com/fastapi/sqlmodel/pull/2051) by [@tiangolo](https://github.com/tiangolo).
@@ -11,6 +12,7 @@
 
 ### Internal
 
+* ⬆ Bump the github-actions group with 5 updates. PR [#2059](https://github.com/fastapi/sqlmodel/pull/2059) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆️ Upgrade latest-changes to 0.7.1. PR [#2054](https://github.com/fastapi/sqlmodel/pull/2054) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 6 updates. PR [#2042](https://github.com/fastapi/sqlmodel/pull/2042) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the github-actions group across 1 directory with 4 updates. PR [#2045](https://github.com/fastapi/sqlmodel/pull/2045) by [@dependabot[bot]](https://github.com/apps/dependabot).

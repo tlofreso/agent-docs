@@ -7,6 +7,16 @@ hide:
 
 ## Latest Changes
 
+### Docs
+
+* 🐛 Use buttons for Termynal controls. PR [#16132](https://github.com/fastapi/fastapi/pull/16132) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ⬆ Bump the github-actions group with 6 updates. PR [#16120](https://github.com/fastapi/fastapi/pull/16120) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* 👥 Update FastAPI GitHub topic repositories. PR [#16122](https://github.com/fastapi/fastapi/pull/16122) by [@tiangolo](https://github.com/tiangolo).
+* 👥 Update FastAPI People - Sponsors. PR [#16119](https://github.com/fastapi/fastapi/pull/16119) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.141.1 (2026-07-29)
 
 ### Fixes
