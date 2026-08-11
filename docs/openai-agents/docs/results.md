@@ -59,14 +59,15 @@ In practice:
 
 When SDK-default nested handoff history preserves a message item verbatim, Sessions, `RunState`, and `to_input_list()` track the exact owned occurrence rather than deduplicating by content. Identical messages that occurred separately remain separate; only the already-owned occurrence is kept from being appended a second time.
 
-Unlike the JavaScript SDK, Python does not expose a separate `output` property for the model-shaped delta only. Use `new_items` when you need SDK metadata, or inspect `raw_responses` when you need the raw model payloads.
+Unlike the JavaScript SDK, Python does not expose a separate `output` property containing only the model-format items newly generated during the run. Use `new_items` when you need SDK metadata, or inspect `raw_responses` when you need the raw model payloads.
 
-Computer-tool replay follows the raw Responses payload shape. Preview-model `computer_call` items preserve a single `action`, while `gpt-5.5` computer calls can preserve batched `actions[]`. [`to_input_list()`][agents.result.RunResultBase.to_input_list] and [`RunState`][agents.run_state.RunState] keep whichever shape the model produced, so manual replay, pause/resume flows, and stored transcripts continue to work across both preview and GA computer-tool calls. Local execution results still appear as `computer_call_output` items in `new_items`.
+Resubmitting computer-tool items as conversation input uses the raw Responses payload shape. Preview-model `computer_call` items preserve a single `action`, while `gpt-5.5` computer calls can preserve batched `actions[]`. [`to_input_list()`][agents.result.RunResultBase.to_input_list] and [`RunState`][agents.run_state.RunState] keep whichever shape the model produced, so manually resubmitting those items as conversation input, pause/resume flows, and stored transcripts continue to work across both preview and GA computer-tool calls. Local execution results still appear as `computer_call_output` items in `new_items`.
 
 ### New items
 
 [`new_items`][agents.result.RunResultBase.new_items] gives you the richest view of what happened during the run. Common item types are:
 
+-   [`InputItem`][agents.items.InputItem] for input admitted from `RunState.pending_input` immediately before a resumed model call
 -   [`MessageOutputItem`][agents.items.MessageOutputItem] for assistant messages
 -   [`ReasoningItem`][agents.items.ReasoningItem] for reasoning items
 -   [`ToolSearchCallItem`][agents.items.ToolSearchCallItem] and [`ToolSearchOutputItem`][agents.items.ToolSearchOutputItem] for Responses tool search requests and loaded tool-search results
@@ -103,7 +104,7 @@ caller_id = (
 )
 ```
 
-For a program-owned child call, `caller` has type `program`, and `caller_id` identifies the parent program call.
+For a program-owned child call, the `type` field of `caller` is `program`, and `caller_id` identifies the parent program call.
 
 ## Continue or resume the conversation
 
@@ -119,6 +120,8 @@ If a tool needs approval, pending approvals are exposed in [`RunResult.interrupt
 
 Call [`to_state()`][agents.result.RunResult.to_state] to capture a resumable [`RunState`][agents.run_state.RunState], approve or reject the pending items, and then resume with `Runner.run(...)` or `Runner.run_streamed(...)`.
 
+When a [`ToolCallOutputItem`][agents.items.ToolCallOutputItem] output is a Pydantic model or dataclass, `RunState` serializes that output as structured data. `RunState` also traverses dictionaries, lists, and tuples and converts Pydantic models or dataclasses that it encounters in those containers; tuples are restored as lists after a JSON round trip. Other non-JSON-compatible values can fall back to their string representation, so return explicitly JSON-compatible data when an exact custom type must survive serialization.
+
 ```python
 from agents import Agent, Runner
 
@@ -132,6 +135,24 @@ if result.interruptions:
     result = await Runner.run(agent, state)
 ```
 
+#### Add input before resuming
+
+Use [`RunState.add_input()`][agents.run_state.RunState.add_input] when new user input arrives after a run pauses or stops after a completed turn, but before the unfinished run reaches its next model call. A string becomes a user message, and multiple calls preserve insertion order. The staged input is part of serialized `RunState`, so it survives `to_json()` / `from_json()` and `to_string()` / `from_string()` round trips.
+
+```python
+state = result.to_state()
+state.add_input("Also keep the generated report in the project folder.")
+
+for interruption in state.get_interruptions():
+    state.approve(interruption)
+
+result = await Runner.run(agent, state)
+```
+
+On resume, the runner applies both the current agent's input guardrails and the input guardrails from [`RunConfig`][agents.run.RunConfig] only to the staged input. When a client-managed [`Session`][agents.memory.session.Session] is configured, the runner converts the accepted staged input into a durable [`InputItem`][agents.items.InputItem] and awaits the session write before issuing the model request. Without a client-managed session or server-managed conversation, the runner converts the accepted staged input into an `InputItem` before issuing the model request. For a server-managed conversation, the input remains pending until the server request accepts it. Across serialization, resume, and replay-safe retries, the SDK preserves one durable `InputItem` occurrence. This SDK occurrence guarantee is not a provider-delivery guarantee: if a retry policy returns `RetryDecision(approve_unsafe_replay=True)` after a request may have reached the provider, the runner can resend the staged input and provider-side work can repeat. Successfully admitted input appears in `new_items` as an `InputItem`. Read [`RunState.pending_input`][agents.run_state.RunState.pending_input] for a detached copy, or call [`RunState.clear_pending_input()`][agents.run_state.RunState.clear_pending_input] to discard all staged input before resuming.
+
+`RunState.add_input()` rejects a terminal state, a state with no remaining model turns, a state in which an accepted model response is awaiting local processing, and an interrupted state whose pending tool result may end the run before another model call. In those cases, finish the current run and start a new user turn instead.
+
 For streaming runs, finish consuming [`stream_events()`][agents.result.RunResultStreaming.stream_events] first, then inspect `result.interruptions` and resume from `result.to_state()`. For the full approval flow, see [Human-in-the-loop](human_in_the_loop.md).
 
 ### Server-managed continuation
@@ -142,7 +163,7 @@ If you already continue the conversation with `to_input_list()`, `session`, or `
 
 ## Agent-as-tool metadata
 
-When a result comes from a nested [`Agent.as_tool()`][agents.agent.Agent.as_tool] run, [`agent_tool_invocation`][agents.result.RunResultBase.agent_tool_invocation] exposes immutable metadata about the outer tool call:
+When a result comes from a nested [`Agent.as_tool()`][agents.agent.Agent.as_tool] run, [`agent_tool_invocation`][agents.result.RunResultBase.agent_tool_invocation] exposes immutable metadata about the enclosing `Agent.as_tool()` call:
 
 -   `tool_name`
 -   `tool_call_id`
@@ -150,9 +171,9 @@ When a result comes from a nested [`Agent.as_tool()`][agents.agent.Agent.as_tool
 
 For ordinary top-level runs, `agent_tool_invocation` is `None`.
 
-This is especially useful inside `custom_output_extractor`, where you may need the outer tool name, call ID, or raw arguments while post-processing the nested result. See [Tools](tools.md) for the surrounding `Agent.as_tool()` patterns.
+This is especially useful inside `custom_output_extractor`, where you may need the enclosing `Agent.as_tool()` call's tool name, call ID, or raw arguments while post-processing the nested result. See [Tools](tools.md) for the surrounding `Agent.as_tool()` patterns.
 
-If you also need the parsed structured input for that nested run, read `context_wrapper.tool_input`. That is the field [`RunState`][agents.run_state.RunState] serializes generically for nested tool input, while `agent_tool_invocation` is the live result accessor for the current nested invocation.
+If you also need the parsed structured input for that nested run, read `context_wrapper.tool_input`. That is the field [`RunState`][agents.run_state.RunState] serializes generically for nested tool input, while `agent_tool_invocation` exposes metadata for the current nested invocation directly on the result.
 
 ## Streaming lifecycle and diagnostics
 
@@ -167,13 +188,20 @@ Keep consuming `stream_events()` until the async iterator finishes. A streaming 
 
 If you call `cancel()`, continue consuming `stream_events()` so cancellation and cleanup can finish correctly.
 
-Python does not expose a separate streamed `completed` promise or `error` property. Terminal streaming failures are surfaced by raising from `stream_events()`, and `is_complete` reflects whether the run has reached its terminal state.
+Python does not expose a separate streamed `completed` promise or `error` property. Streaming failures that terminate the run are raised by `stream_events()`, and `is_complete` reflects whether the run has reached its terminal state.
 
 ### Raw responses
 
 [`raw_responses`][agents.result.RunResultBase.raw_responses] contains the raw model responses collected during the run. Multi-step runs can produce more than one response, for example across handoffs or repeated model/tool/model cycles.
 
 [`last_response_id`][agents.result.RunResultBase.last_response_id] is just the ID from the last entry in `raw_responses`.
+
+Each [`ModelResponse`][agents.items.ModelResponse] also exposes two diagnostics that apply to that individual model call:
+
+-   [`request_id`][agents.items.ModelResponse.request_id] is the transport request ID when the model adapter and transport propagate one. The built-in `OpenAIResponsesModel` and `OpenAIChatCompletionsModel` propagate an available server-generated `x-request-id` on their HTTP and SSE transport paths. When the configured endpoint is the OpenAI API, log a non-`None` value in production so you can correlate failures with OpenAI support; for an OpenAI-compatible provider or proxy, use that service's support channel instead. `OpenAIResponsesWSModel` currently leaves `request_id` as `None`. Third-party adapters do not guarantee request ID propagation. The AnyLLM Chat Completions adapter and `LitellmModel` currently leave `request_id` as `None`. The Agents SDK AnyLLM Responses adapter may also leave `request_id` as `None` when it normalizes a provider response without preserving the transport request ID.
+-   [`raw_usage`][agents.items.ModelResponse.raw_usage] is an opt-in, JSON-compatible snapshot of the provider's usage payload before the Agents SDK normalizes the payload. Enable `raw_usage` with `ModelSettings(preserve_raw_usage=True)`; see [Preserving provider usage payloads](usage.md#preserving-provider-usage-payloads).
+
+`ModelResponse.request_id` and `ModelResponse.raw_usage` can each be `None`, so handle these values as optional diagnostics rather than conversation state.
 
 ### Guardrail results
 

@@ -4,11 +4,11 @@ search:
 ---
 # セッション
 
-Agents SDK には、複数回のエージェント実行にわたって会話履歴を自動的に維持する組み込みのセッションメモリが用意されているため、ターン間で `.to_input_list()` を手動で処理する必要がありません。
+Agents SDK には、複数回のエージェント実行にわたって会話履歴を自動的に維持する組み込みのセッションメモリが用意されており、ターン間で `.to_input_list()` を手動管理する必要がなくなります。
 
-セッションは特定のセッションの会話履歴を保存し、明示的な手動のメモリ管理を必要とせずに、エージェントがコンテキストを維持できるようにします。これは、エージェントに以前のやり取りを記憶させたいチャットアプリケーションや、複数ターンの会話を構築する場合に特に便利です。
+セッションは特定のセッションの会話履歴を保存するため、明示的な手動のメモリ管理を必要とせずに、エージェントがコンテキストを維持できます。これは、エージェントに過去のやり取りを記憶させたいチャットアプリケーションや複数ターンの会話を構築する場合に特に便利です。
 
-SDK にクライアント側のメモリを管理させたい場合は、セッションを使用します。同じ実行内でセッションを `conversation_id`、`previous_response_id`、または `auto_previous_response_id` と組み合わせることはできません。代わりに OpenAI のサーバーで管理される継続機能を使用したい場合は、セッションと重ねて使用せず、これらの仕組みのいずれかを選択してください。
+SDK にクライアント側のメモリを管理させたい場合は、セッションを使用します。同じ実行内では、セッションを実行レベルの継続オプション `conversation_id`、`previous_response_id`、`auto_previous_response_id` と組み合わせることはできません。代わりに OpenAI のサーバー管理による継続を使用する場合は、セッションと重ねて使用せず、これらのメカニズムのいずれかを選択してください。
 
 ## クイックスタート
 
@@ -51,7 +51,7 @@ print(result.final_output)  # "Approximately 39 million"
 
 ## 同じセッションによる中断された実行の再開
 
-実行が承認待ちで一時停止した場合は、同じセッションインスタンス（または同じバックエンドストアを参照する別のセッションインスタンス）を使用して再開し、再開後のターンが保存済みの同じ会話履歴を引き継ぐようにしてください。
+実行が承認待ちで一時停止した場合は、同じセッションインスタンス（または、同じセッション ID と同じ基盤ストレージバックエンドを使用するよう設定された別のインスタンス）で再開し、再開後のターンが同じ保存済み会話履歴を引き継ぐようにしてください。
 
 ```python
 result = await Runner.run(agent, "Delete temporary files that are no longer needed.", session=session)
@@ -65,29 +65,29 @@ if result.interruptions:
 
 ## セッションの基本動作
 
-セッションメモリが有効な場合、次のように動作します。
+セッションメモリが有効な場合は、次のように動作します。
 
-1. **各実行前**: ランナーはセッションの会話履歴を自動的に取得し、入力項目の先頭に追加します。
-2. **各実行後**: 実行中に生成されたすべての新しい項目（ユーザー入力、アシスタントの応答、ツール呼び出しなど）がセッションに自動的に保存されます。
+1. **各実行の前**: ランナーはセッションの会話履歴を自動的に取得し、入力項目の先頭に追加します。
+2. **各実行の後**: 実行中に生成されたすべての新しい項目（ユーザー入力、アシスタントの応答、ツール呼び出しなど）がセッションに自動的に保存されます。
 3. **コンテキストの保持**: 同じセッションを使用する後続の各実行には完全な会話履歴が含まれるため、エージェントはコンテキストを維持できます。
 
-これにより、`.to_input_list()` を手動で呼び出し、実行間の会話状態を管理する必要がなくなります。
+これにより、`.to_input_list()` を手動で呼び出したり、実行間で会話の状態を管理したりする必要がなくなります。
 
-## 履歴と新しい入力のマージ制御
+## 履歴と新しい入力のマージ方法の制御
 
-セッションを渡すと、通常、ランナーは次の順序でモデル入力を準備します。
+セッションを渡すと、通常、ランナーはモデル入力を次の順序で準備します。
 
 1. セッション履歴（`session.get_items(...)` から取得）
 2. 新しいターンの入力
 
-モデル呼び出し前のマージ処理をカスタマイズするには、[`RunConfig.session_input_callback`][agents.run.RunConfig.session_input_callback] を使用します。コールバックは次の 2 つのリストを受け取ります。
+モデル呼び出し前にこのマージ処理をカスタマイズするには、[`RunConfig.session_input_callback`][agents.run.RunConfig.session_input_callback] を使用します。コールバックは次の 2 つのリストを受け取ります。
 
--   `history`: 取得したセッション履歴（入力項目形式に正規化済み）
--   `new_input`: 現在のターンの新しい入力項目
+- `history`: 取得されたセッション履歴（入力項目形式に正規化済み）
+- `new_input`: 現在のターンの新しい入力項目
 
-モデルに送信する入力項目の最終的なリストを返してください。
+モデルに送信する最終的な入力項目のリストを返します。
 
-コールバックは両方のリストのコピーを受け取るため、安全に変更できます。返されたリストによってそのターンのモデル入力が決まりますが、SDK が永続化するのは新しいターンに属する項目だけです。したがって、古い履歴を並べ替えたりフィルタリングしたりしても、古いセッション項目が新しい入力として再び保存されることはありません。
+コールバックは両方のリストのコピーを受け取るため、安全に変更できます。返されたリストはそのターンのモデル入力を制御しますが、SDK が永続化するのは、新しいターンに属する項目のみです。したがって、古い履歴の並べ替えやフィルタリングによって、古いセッション項目が新規入力として再度保存されることはありません。
 
 ```python
 from agents import Agent, RunConfig, Runner, SQLiteSession
@@ -109,14 +109,14 @@ result = await Runner.run(
 )
 ```
 
-セッションによる項目の保存方法を変更せずに、履歴の独自の枝刈り、並べ替え、または選択的な追加が必要な場合に使用します。モデル呼び出しの直前に後段の最終処理が必要な場合は、[エージェント実行ガイド](../running_agents.md)の [`call_model_input_filter`][agents.run.RunConfig.call_model_input_filter] を使用してください。
+セッションによる項目の保存方法を変更せずに、履歴を独自に削減、並べ替え、または選択的に追加する必要がある場合に使用します。モデル呼び出しの直前に最終処理を行う必要がある場合は、[エージェント実行ガイド](../running_agents.md)の [`call_model_input_filter`][agents.run.RunConfig.call_model_input_filter] を使用してください。
 
 ## 取得する履歴の制限
 
-各実行前に取得する履歴の量を制御するには、[`SessionSettings`][agents.memory.SessionSettings] を使用します。
+各実行の前に取得する履歴の量を制御するには、[`SessionSettings`][agents.memory.SessionSettings] を使用します。
 
--   `SessionSettings(limit=None)`（デフォルト）: 利用可能なすべてのセッション項目を取得します
--   `SessionSettings(limit=N)`: 最新の `N` 項目のみを取得します
+- `SessionSettings(limit=None)`（デフォルト）: 利用可能なすべてのセッション項目を取得します
+- `SessionSettings(limit=N)`: 最新の `N` 項目のみを取得します
 
 これは、[`RunConfig.session_settings`][agents.run.RunConfig.session_settings] を使用して実行ごとに適用できます。
 
@@ -134,13 +134,13 @@ result = await Runner.run(
 )
 ```
 
-セッション実装がデフォルトのセッション設定を公開している場合、`RunConfig.session_settings` はその実行について、`None` ではない値を上書きします。これは、セッションのデフォルト動作を変更せずに取得サイズを制限したい長い会話で便利です。
+セッション実装がデフォルトのセッション設定を公開している場合、`RunConfig.session_settings` 内の `None` 以外の各値は、その実行に対応するデフォルト値を上書きします。これは、セッションのデフォルト動作を変更せずに、長い会話で取得件数を制限したい場合に便利です。
 
 ## メモリ操作
 
 ### 基本操作
 
-セッションでは、会話履歴を管理するために複数の操作を使用できます。
+セッションでは、会話履歴を管理するための複数の操作を利用できます。
 
 ```python
 from agents import SQLiteSession
@@ -165,9 +165,9 @@ print(last_item)  # {"role": "assistant", "content": "Hi there!"}
 await session.clear_session()
 ```
 
-### `pop_item` を使用した修正
+### 修正のための pop_item の使用
 
-`pop_item` メソッドは、会話の最後の項目を取り消したり変更したりする場合に特に便利です。
+`pop_item` メソッドは、会話内の最後の項目を取り消したり変更したりする場合に特に便利です。
 
 ```python
 from agents import Agent, Runner, SQLiteSession
@@ -196,34 +196,34 @@ result = await Runner.run(
 print(f"Agent: {result.final_output}")
 ```
 
-## 組み込みセッション実装
+## 組み込みのセッション実装
 
-SDK には、さまざまなユースケースに対応する複数のセッション実装が用意されています。
+SDK には、さまざまなユースケース向けの複数のセッション実装が用意されています。
 
 ### 組み込みセッション実装の選択
 
-以下の詳細な例を読む前に、この表を使用して開始点を選択してください。
+以下の詳細なコード例を読む前に、この表を使用して出発点を選択してください。
 
-| セッションタイプ | 最適な用途 | 備考 |
+| セッションの種類 | 最適な用途 | 備考 |
 | --- | --- | --- |
-| `SQLiteSession` | ローカル開発とシンプルなアプリ | 組み込みで軽量。ファイルベースまたはインメモリ |
+| `SQLiteSession` | ローカル開発とシンプルなアプリ | 組み込みで軽量、ファイルベースまたはインメモリ |
 | `AsyncSQLiteSession` | `aiosqlite` を使用する非同期 SQLite | 非同期ドライバーをサポートする拡張バックエンド |
-| `RedisSession` | ワーカーやサービス間の共有メモリ | 低レイテンシーの分散デプロイに最適 |
-| `SQLAlchemySession` | 既存のデータベースを使用する本番アプリ | SQLAlchemy がサポートするデータベースに対応 |
-| `MongoDBSession` | MongoDB をすでに使用しているアプリ、またはマルチプロセスストレージが必要なアプリ | 非同期 pymongo。順序付け用のアトミックなシーケンスカウンター |
-| `DaprSession` | Dapr サイドカーを使用するクラウドネイティブなデプロイ | 複数の状態ストアに加え、TTL と整合性の制御をサポート |
-| `OpenAIConversationsSession` | OpenAI でのサーバー管理ストレージ | OpenAI Conversations API をバックエンドとする履歴 |
-| `OpenAIResponsesCompactionSession` | 自動圧縮を伴う長い会話 | 別のセッションバックエンドをラップ |
-| `AdvancedSQLiteSession` | SQLite に加えて分岐や分析が必要な場合 | より高度な機能セット。専用ページを参照 |
-| `EncryptedSession` | 別のセッションに追加する暗号化と TTL | ラッパー。最初に基盤となるバックエンドを選択 |
+| `RedisSession` | ワーカーやサービス間での共有メモリ | 低レイテンシーの分散デプロイに最適 |
+| `SQLAlchemySession` | 既存のデータベースを使用する本番アプリ | SQLAlchemy がサポートするデータベースで動作 |
+| `MongoDBSession` | MongoDB をすでに使用している、またはマルチプロセスストレージを必要とするアプリ | 非同期 pymongo。順序付け用のアトミックなシーケンスカウンター |
+| `DaprSession` | Dapr サイドカーを使用するクラウドネイティブなデプロイ | 複数のステートストアに加え、TTL と整合性の制御をサポート |
+| `OpenAIConversationsSession` | OpenAI 内のサーバー管理ストレージ | OpenAI Conversations API を基盤とする履歴 |
+| `OpenAIResponsesCompactionSession` | 自動コンパクションを必要とする長い会話 | 別のセッションバックエンドをラップ |
+| `AdvancedSQLiteSession` | SQLite に加えて分岐や分析が必要な場合 | より多機能。専用ページを参照 |
+| `EncryptedSession` | 別のセッションに暗号化と TTL を追加する場合 | ラッパー。最初に基盤となるバックエンドを選択 |
 
-一部の実装には、追加の詳細を記載した専用ページがあります。それぞれのサブセクション内にリンクがあります。
+一部の実装には、追加の詳細を記載した専用ページがあります。各サブセクション内にリンクを掲載しています。
 
-ChatKit 用の Python サーバーを実装する場合は、ChatKit のスレッドと項目を永続化するために `chatkit.store.Store` 実装を使用してください。`SQLAlchemySession` などの Agents SDK セッションは SDK 側の会話履歴を管理しますが、ChatKit のストアをそのまま置き換えるものではありません。[ChatKit データストアの実装に関する `chatkit-python` ガイド](https://github.com/openai/chatkit-python/blob/main/docs/guides/respond-to-user-message.md#implement-your-chatkit-data-store)を参照してください。
+ChatKit 用の Python サーバーを実装する場合は、ChatKit のスレッドと項目の永続化に `chatkit.store.Store` 実装を使用してください。`SQLAlchemySession` などの Agents SDK セッションは SDK 側の会話履歴を管理しますが、ChatKit のストアをそのまま置き換えるものではありません。[`chatkit-python` による ChatKit データストアの実装ガイド](https://github.com/openai/chatkit-python/blob/main/docs/guides/respond-to-user-message.md#implement-your-chatkit-data-store)を参照してください。
 
 ### OpenAI Conversations API セッション
 
-`OpenAIConversationsSession` を通じて、[OpenAI の Conversations API](https://platform.openai.com/docs/api-reference/conversations)を使用します。
+`OpenAIConversationsSession` を通じて [OpenAI の Conversations API](https://platform.openai.com/docs/api-reference/conversations) を使用します。
 
 ```python
 from agents import Agent, Runner, OpenAIConversationsSession
@@ -257,11 +257,11 @@ result = await Runner.run(
 print(result.final_output)  # "California"
 ```
 
-### OpenAI Responses 圧縮セッション
+### OpenAI Responses コンパクションセッション
 
-Responses API（`responses.compact`）を使用して保存済みの会話履歴を圧縮するには、`OpenAIResponsesCompactionSession` を使用します。これは基盤となるセッションをラップし、`should_trigger_compaction` に基づいて各ターン後に自動圧縮できます。`OpenAIConversationsSession` をラップしないでください。この 2 つの機能は異なる方法で履歴を管理します。
+Responses API（`responses.compact`）を使用して、保存された会話履歴をコンパクションするには、`OpenAIResponsesCompactionSession` を使用します。これは基盤となるセッションをラップし、`should_trigger_compaction` に基づいて各ターン後に自動的にコンパクションできます。`OpenAIConversationsSession` をこれでラップしないでください。この 2 つの機能は異なる方法で履歴を管理します。
 
-#### 典型的な使用方法（自動圧縮）
+#### 一般的な使用方法（自動コンパクション）
 
 ```python
 from agents import Agent, Runner, SQLiteSession
@@ -278,17 +278,19 @@ result = await Runner.run(agent, "Hello", session=session)
 print(result.final_output)
 ```
 
-デフォルトでは、候補のしきい値に達すると、各ターン後に圧縮が実行されます。
+デフォルトでは、SDK は各ターン後にコンパクション候補がしきい値を満たしているか確認し、満たしている場合にのみコンパクションします。
 
-Responses API のレスポンス ID を使用してすでにターンを連結している場合は、`compaction_mode="previous_response_id"` が最適です。`compaction_mode="input"` は、代わりに現在のセッション項目から圧縮リクエストを再構築します。これは、レスポンスチェーンを利用できない場合や、セッションの内容を信頼できる情報源にしたい場合に便利です。デフォルトの `"auto"` は、利用可能な最も安全なオプションを選択します。
+`compaction_mode="previous_response_id"` は、コンパクションセッションによって保持されている Responses API のレスポンス ID を使用し、そのレスポンスチェーンが利用可能な間に最適に動作します。代わりに `compaction_mode="input"` は、現在のセッション項目からコンパクションリクエストを再構築します。これは、レスポンスチェーンが利用できない場合や、セッションの内容を信頼できる唯一の情報源にしたい場合に便利です。デフォルトの `"auto"` は、利用可能な最も安全なオプションを選択します。
 
-エージェントが `ModelSettings(store=False)` で実行されている場合、Responses API は後から参照できるように最後のレスポンスを保持しません。このステートレスな構成では、デフォルトの `"auto"` モードは `previous_response_id` に依存せず、入力ベースの圧縮にフォールバックします。完全な例については、[`examples/memory/compaction_session_stateless_example.py`](https://github.com/openai/openai-agents-python/tree/main/examples/memory/compaction_session_stateless_example.py)を参照してください。
+エージェントを `ModelSettings(store=False)` で実行すると、Responses API は後から参照できるように最後のレスポンスを保持しません。このステートレスな構成では、デフォルトの `"auto"` モードは `previous_response_id` に依存せず、入力ベースのコンパクションにフォールバックします。完全なコード例については、[`examples/memory/compaction_session_stateless_example.py`](https://github.com/openai/openai-agents-python/tree/main/examples/memory/compaction_session_stateless_example.py) を参照してください。
 
-#### 自動圧縮によるストリーミングのブロック
+#### 自動コンパクションによるストリーミングのブロック
 
-圧縮はセッション履歴を消去して書き換えるため、SDK は圧縮が完了するまで実行を完了と見なしません。ストリーミングモードでは、圧縮処理が重い場合、最後の出力トークンの後も `run.stream_events()` が数秒間開いたままになることがあります。
+コンパクションではセッション履歴を消去して書き直すため、SDK はコンパクションが完了するまで実行を完了したものと見なしません。ストリーミングモードでは、コンパクションの負荷が高い場合、最後の出力トークンの後も `run.stream_events()` が数秒間開いたままになることがあります。
 
-低レイテンシーのストリーミングや素早いターン移行が必要な場合は、自動圧縮を無効にし、ターン間またはアイドル時に `run_compaction()` を自分で呼び出してください。独自の基準に基づいて、圧縮を強制するタイミングを決定できます。
+`OpenAIResponsesCompactionSession.run_compaction()` は、消去と再書き込みの操作を、ラッパー境界で復旧可能な置換として扱います。基盤となる履歴が変更された後に置換が失敗またはキャンセルされた場合、ラッパーは以前の履歴の復元を試み、元の例外またはキャンセルが呼び出し元に伝わる前に、その復旧処理が完了するまで待機します。復旧中に基盤バックエンドでも障害が発生した場合、以前の履歴が復元されないままになる可能性があり、SDK は復旧の失敗をログに記録します。ラッパーは `add_items()`、`pop_item()`、`clear_session()` の呼び出しを、ロックされた置換および復旧フェーズと直列化します。ただし、リモートのコンパクションリクエストがまだ進行中の間に変更が完了し、その後、正常な置換によって上書きされる可能性があります。手動コンパクションは、ラッパーへの変更が並行して行われていないターン間に実行し、コンパクションの実行中に基盤セッションを直接変更しないでください。
+
+低レイテンシーのストリーミングや迅速なターン切り替えが必要な場合は、自動コンパクションを無効にし、ターン間（またはアイドル時）に `run_compaction()` を自分で呼び出してください。独自の基準に基づいて、コンパクションを強制するタイミングを決定できます。
 
 ```python
 from agents import Agent, Runner, SQLiteSession
@@ -311,7 +313,7 @@ await session.run_compaction({"force": True})
 
 ### SQLite セッション
 
-SQLite を使用する、デフォルトの軽量なセッション実装です。
+SQLite を使用するデフォルトの軽量なセッション実装です。
 
 ```python
 from agents import SQLiteSession
@@ -332,7 +334,7 @@ result = await Runner.run(
 
 ### 非同期 SQLite セッション
 
-`aiosqlite` をバックエンドとする SQLite 永続化が必要な場合は、`AsyncSQLiteSession` を使用します。
+`aiosqlite` を基盤とする SQLite の永続化が必要な場合は、`AsyncSQLiteSession` を使用します。
 
 ```bash
 pip install aiosqlite
@@ -368,11 +370,11 @@ result = await Runner.run(agent, "Hello", session=session)
 await session.close()
 ```
 
-`from_url(...)` は Redis クライアントを作成して所有します。`close()` の後、セッションは終了状態となり、後続のセッション操作では `RuntimeError` が発生します。`close()` を繰り返し呼び出したり、同時に呼び出したりしても安全です。アプリケーションがすでに Redis クライアントを管理している場合は、`redis_client=...` を指定して `RedisSession(...)` を直接構築してください。その場合、`close()` は何も行わず、呼び出し元がクライアントの所有権を保持し、セッションも引き続き利用できます。
+`from_url(...)` は Redis クライアントを作成し、その所有権を持ちます。`close()` の後、セッションは終了状態となり、それ以降のセッション操作では `RuntimeError` が発生します。`close()` は、繰り返しまたは並行して呼び出しても安全です。アプリケーションがすでに Redis クライアントを管理している場合は、`redis_client=...` を使用して `RedisSession(...)` を直接構築します。その場合、`close()` は何も行わず、クライアントの所有権とセッションの使用可能性はどちらも呼び出し元に保持されます。
 
 ### SQLAlchemy セッション
 
-SQLAlchemy がサポートする任意のデータベースを使用する、本番環境対応の Agents SDK セッション永続化です。
+SQLAlchemy がサポートする任意のデータベースを使用した、本番環境対応の Agents SDK セッション永続化です。
 
 ```python
 from agents.extensions.memory import SQLAlchemySession
@@ -394,7 +396,7 @@ session = SQLAlchemySession("user_123", engine=engine, create_tables=True)
 
 ### Dapr セッション
 
-すでに Dapr サイドカーを実行している場合や、エージェントコードを変更せずに異なる状態ストアのバックエンド間で移行できるセッションストレージが必要な場合は、`DaprSession` を使用します。
+Dapr サイドカーをすでに実行している場合や、エージェントのコードを変更せずに構成済みのステートストアバックエンドを切り替えたい場合は、`DaprSession` を使用します。
 
 ```bash
 pip install openai-agents[dapr]
@@ -415,19 +417,19 @@ async with DaprSession.from_address(
     print(result.final_output)
 ```
 
-注記:
+注意事項：
 
--   `from_address(...)` は Dapr クライアントを作成して所有します。アプリがすでにクライアントを管理している場合は、`dapr_client=...` を指定して `DaprSession(...)` を直接構築してください。
--   コンテキストを終了するか `close()` を呼び出すと、所有クライアントを使用するセッションは終了状態になります。後続のセッション操作では `RuntimeError` が発生しますが、`close()` を繰り返し呼び出したり、同時に呼び出したりしても安全です。注入されたクライアントを使用する場合、`close()` は何も行わず、セッションは引き続き利用できます。
--   バックエンドの状態ストアが TTL をサポートしている場合に、古いセッションデータを自動的に期限切れにするには、`ttl=...` を渡します。
--   書き込み後の読み取りについて、より強い一貫性保証が必要な場合は、`consistency=DAPR_CONSISTENCY_STRONG` を渡します。
--   Dapr Python SDK は HTTP サイドカーエンドポイントも確認します。ローカル開発では、`dapr_address` で使用する gRPC ポートに加えて、`--dapr-http-port 3500` を指定して Dapr を起動してください。
--   ローカルコンポーネントやトラブルシューティングを含む完全なセットアップ手順については、[`examples/memory/dapr_session_example.py`](https://github.com/openai/openai-agents-python/tree/main/examples/memory/dapr_session_example.py)を参照してください。
+- `from_address(...)` は Dapr クライアントを作成し、その所有権を持ちます。アプリがすでにクライアントを管理している場合は、`dapr_client=...` を使用して `DaprSession(...)` を直接構築します。
+- コンテキストを終了するか `close()` を呼び出すと、所有クライアントを使用するセッションは終了状態となり、それ以降のセッション操作では `RuntimeError` が発生します。一方、`close()` は、繰り返しまたは並行して呼び出しても安全です。注入されたクライアントを使用する場合、`close()` は何も行わず、セッションは引き続き使用できます。
+- 基盤のステートストアが TTL をサポートしている場合は、セッションデータに TTL の有効期限が自動適用されるよう、`ttl=...` を渡します。
+- 書き込み後の読み取りについて、より強い保証が必要な場合は、`consistency=DAPR_CONSISTENCY_STRONG` を渡します。
+- Dapr Python SDK は HTTP サイドカーエンドポイントも確認します。ローカル開発では、`dapr_address` で使用する gRPC ポートに加えて、`--dapr-http-port 3500` でも Dapr を起動してください。
+- ローカルコンポーネントやトラブルシューティングを含む完全なセットアップ手順については、[`examples/memory/dapr_session_example.py`](https://github.com/openai/openai-agents-python/tree/main/examples/memory/dapr_session_example.py) を参照してください。
 
 
 ### MongoDB セッション
 
-MongoDB をすでに使用しているアプリケーションや、水平スケーリング可能なマルチプロセスのセッションストレージが必要な場合は、`MongoDBSession` を使用します。
+MongoDB をすでに使用している、または水平方向にスケール可能なマルチプロセスのセッションストレージを必要とするアプリケーションでは、`MongoDBSession` を使用します。
 
 ```bash
 pip install openai-agents[mongodb]
@@ -450,16 +452,16 @@ print(result.final_output)
 await session.close()
 ```
 
-注記:
+注意事項：
 
--   `from_uri(...)` は `AsyncMongoClient` を作成して所有し、`session.close()` で閉じます。所有クライアントを使用するセッションは `close()` 後に終了状態となり、後続のセッション操作では `RuntimeError` が発生します。アプリケーションがすでにクライアントを管理している場合は、`client=...` を指定して `MongoDBSession(...)` を直接構築してください。その場合、`session.close()` は何も行わず、ライフサイクルとセッションの利用可否は呼び出し元が管理します。
--   ほかに変更を加えることなく、`mongodb+srv://user:password@cluster.example.mongodb.net` URI を `from_uri(...)` に渡すことで、[MongoDB Atlas](https://www.mongodb.com/products/platform)に接続できます。
--   2 つのコレクションが使用され、どちらの名前も `sessions_collection=`（デフォルトは `agent_sessions`）と `messages_collection=`（デフォルトは `agent_messages`）で設定できます。インデックスは初回使用時に自動的に作成されます。各メッセージドキュメントには単調増加する `seq` カウンターが含まれ、同時実行される書き込み元やプロセス間で順序を維持します。
--   最初の実行前に接続を確認するには、`await session.ping()` を使用します。
+- `from_uri(...)` は `AsyncMongoClient` を作成して所有し、`session.close()` で閉じます。所有クライアントを使用するセッションは、`close()` の後に終了状態となり、それ以降のセッション操作では `RuntimeError` が発生します。アプリケーションがすでにクライアントを管理している場合は、`client=...` を使用して `MongoDBSession(...)` を直接構築します。その場合、`session.close()` は何も行わず、クライアントのライフサイクルに対する責任は呼び出し元に保持され、セッションは引き続き使用できます。
+- `mongodb+srv://user:password@cluster.example.mongodb.net` URI を `from_uri(...)` に渡すだけで、ほかに変更を加えることなく [MongoDB Atlas](https://www.mongodb.com/products/platform) に接続できます。
+- 2 つのコレクションが使用され、どちらの名前も `sessions_collection=`（デフォルトは `agent_sessions`）と `messages_collection=`（デフォルトは `agent_messages`）で設定できます。インデックスは初回使用時に自動的に作成されます。空でない `add_items()` の各呼び出しでは、単調増加する `seq` によって最終項目を基準にバッチが順序付けられた、1 つの論理バッチドキュメントが書き込まれます。従来の項目ごとのメッセージドキュメントも引き続き読み取り可能です。論理バッチは MongoDB の単一ドキュメントのサイズ上限内に収まる必要があります。サイズ超過のバッチは、部分的なバッチを保存することなくアトミックに失敗します。
+- 最初の実行前に接続を確認するには、`await session.ping()` を使用します。
 
 ### 高度な SQLite セッション
 
-会話の分岐、使用状況分析、構造化クエリに対応した拡張 SQLite セッションです。
+会話の分岐、使用状況分析、構造化クエリを備えた拡張 SQLite セッションです。
 
 ```python
 from agents.extensions.memory import AdvancedSQLiteSession
@@ -508,32 +510,32 @@ result = await Runner.run(agent, "Hello", session=session)
 
 詳細なドキュメントについては、[暗号化セッション](encrypted_session.md)を参照してください。
 
-### その他のセッションタイプ
+### その他のセッション形式
 
-ほかにもいくつかの組み込みオプションがあります。`examples/memory/` および `extensions/memory/` 配下のソースコードを参照してください。
+ほかにもいくつかの組み込みオプションがあります。`examples/memory/` と `extensions/memory/` 配下のソースコードを参照してください。
 
 ## 運用パターン
 
 ### セッション ID の命名
 
-会話の整理に役立つ、意味のあるセッション ID を使用してください。
+会話を整理しやすい、意味のあるセッション ID を使用してください。
 
--   ユーザーベース: `"user_12345"`
--   スレッドベース: `"thread_abc123"`
--   コンテキストベース: `"support_ticket_456"`
+- ユーザーベース: `"user_12345"`
+- スレッドベース: `"thread_abc123"`
+- コンテキストベース: `"support_ticket_456"`
 
 ### メモリの永続化
 
--   一時的な会話には、インメモリ SQLite（`SQLiteSession("session_id")`）を使用します
--   永続的な会話には、ファイルベースの SQLite（`SQLiteSession("session_id", "path/to/db.sqlite")`）を使用します
--   `aiosqlite` ベースの実装が必要な場合は、非同期 SQLite（`AsyncSQLiteSession("session_id", db_path="...")`）を使用します
--   共有可能で低レイテンシーのセッションメモリには、Redis をバックエンドとするセッション（`RedisSession.from_url("session_id", url="redis://...")`）を使用します
--   SQLAlchemy がサポートする既存のデータベースを使用する本番システムには、SQLAlchemy ベースのセッション（`SQLAlchemySession("session_id", engine=engine, create_tables=True)`）を使用します
--   MongoDB をすでに使用しているアプリケーションや、水平スケーリング可能なマルチプロセスのセッションストレージが必要な場合は、MongoDB セッション（`MongoDBSession.from_uri("session_id", uri="mongodb://localhost:27017")`）を使用します
--   組み込みのテレメトリ、トレーシング、データ分離機能と 30 種類超のデータベースバックエンドのサポートが必要な本番環境のクラウドネイティブデプロイには、Dapr 状態ストアセッション（`DaprSession.from_address("session_id", state_store_name="statestore", dapr_address="localhost:50001")`）を使用します
--   OpenAI Conversations API に履歴を保存したい場合は、OpenAI がホストするストレージ（`OpenAIConversationsSession()`）を使用します
--   任意のセッションを透過的な暗号化と TTL ベースの期限切れ機能でラップするには、暗号化セッション（`EncryptedSession(session_id, underlying_session, encryption_key)`）を使用します
--   より高度なユースケースでは、ほかの本番システム（Django など）向けのカスタムセッションバックエンドの実装を検討してください
+- 一時的な会話にはインメモリ SQLite（`SQLiteSession("session_id")`）を使用します
+- 永続的な会話にはファイルベースの SQLite（`SQLiteSession("session_id", "path/to/db.sqlite")`）を使用します
+- `aiosqlite` ベースの実装が必要な場合は、非同期 SQLite（`AsyncSQLiteSession("session_id", db_path="...")`）を使用します
+- 共有された低レイテンシーのセッションメモリには、Redis ベースのセッション（`RedisSession.from_url("session_id", url="redis://...")`）を使用します
+- SQLAlchemy がサポートする既存のデータベースを使用する本番システムには、SQLAlchemy ベースのセッション（`SQLAlchemySession("session_id", engine=engine, create_tables=True)`）を使用します
+- MongoDB をすでに使用している、または水平方向にスケール可能なマルチプロセスのセッションストレージを必要とするアプリケーションには、MongoDB セッション（`MongoDBSession.from_uri("session_id", uri="mongodb://localhost:27017")`）を使用します
+- 組み込みのテレメトリ、トレーシング、データ分離、および 30 以上のデータベースバックエンドのサポートを必要とする本番環境のクラウドネイティブなデプロイには、Dapr ステートストアセッション（`DaprSession.from_address("session_id", state_store_name="statestore", dapr_address="localhost:50001")`）を使用します
+- OpenAI Conversations API に履歴を保存したい場合は、OpenAI がホストするストレージ（`OpenAIConversationsSession()`）を使用します
+- 任意のセッションを透過的な暗号化と TTL ベースの有効期限でラップするには、暗号化セッション（`EncryptedSession(session_id, underlying_session, encryption_key)`）を使用します
+- より高度なユースケースでは、ほかの本番システム（Django など）向けのカスタムセッションバックエンドの実装を検討してください
 
 ### 複数のセッション
 
@@ -579,9 +581,9 @@ result2 = await Runner.run(
 )
 ```
 
-## 完全な例
+## 完全なコード例
 
-セッションメモリの実際の動作を示す完全な例を次に示します。
+セッションメモリの動作を示す完全なコード例を以下に示します。
 
 ```python
 import asyncio
@@ -645,39 +647,38 @@ if __name__ == "__main__":
 
 ## カスタムセッション実装
 
-[`Session`][agents.memory.session.Session] プロトコルに従うクラスを作成することで、独自のセッションメモリを実装できます。
+[`Session`][agents.memory.session.Session] プロトコルに構造的に準拠するクラスを作成することで、独自のセッションメモリを実装できます。`SessionABC` を継承する必要はありません。`session_id` と `session_settings` を定義し、4 つの履歴メソッドを直接実装してください。
 
 ```python
-from agents.memory.session import SessionABC
+from agents import Agent, Runner, SessionSettings
 from agents.items import TResponseInputItem
-from typing import List
 
-class MyCustomSession(SessionABC):
+
+class MyCustomSession:
     """Custom session implementation following the Session protocol."""
 
-    def __init__(self, session_id: str):
+    session_settings: SessionSettings | None = None
+
+    def __init__(self, session_id: str) -> None:
         self.session_id = session_id
-        # Your initialization here
+        self.items: list[TResponseInputItem] = []
 
-    async def get_items(self, limit: int | None = None) -> List[TResponseInputItem]:
-        """Retrieve conversation history for this session."""
-        # Your implementation here
-        pass
+    async def get_items(self, limit: int | None = None) -> list[TResponseInputItem]:
+        if limit is None:
+            return list(self.items)
+        if limit <= 0:
+            return []
+        return list(self.items[-limit:])
 
-    async def add_items(self, items: List[TResponseInputItem]) -> None:
-        """Store new items for this session."""
-        # Your implementation here
-        pass
+    async def add_items(self, items: list[TResponseInputItem]) -> None:
+        self.items.extend(items)
 
     async def pop_item(self) -> TResponseInputItem | None:
-        """Remove and return the most recent item from this session."""
-        # Your implementation here
-        pass
+        return self.items.pop() if self.items else None
 
     async def clear_session(self) -> None:
-        """Clear all items for this session."""
-        # Your implementation here
-        pass
+        self.items.clear()
+
 
 # Use your custom session
 agent = Agent(name="Assistant")
@@ -688,13 +689,54 @@ result = await Runner.run(
 )
 ```
 
+### カスタムセッションからの実行コンテキストへのアクセス
+
+Agents SDK は、テナントルーティング、認可、またはアプリ固有のその他のストレージ判断のために、アクティブな [`RunContextWrapper`][agents.run_context.RunContextWrapper] をカスタムセッションに渡すことができます。Agents SDK がラッパーを渡せるようにするには、4 つの履歴メソッドすべてに、明示的に命名され、キーワード引数として使用可能な `wrapper` パラメーターを追加します。
+
+```python
+from typing import Any
+
+from agents import RunContextWrapper
+from agents.items import TResponseInputItem
+
+
+class ContextAwareSession:
+    async def get_items(
+        self,
+        limit: int | None = None,
+        *,
+        wrapper: RunContextWrapper[Any] | None = None,
+    ) -> list[TResponseInputItem]: ...
+
+    async def add_items(
+        self,
+        items: list[TResponseInputItem],
+        *,
+        wrapper: RunContextWrapper[Any] | None = None,
+    ) -> None: ...
+
+    async def pop_item(
+        self,
+        *,
+        wrapper: RunContextWrapper[Any] | None = None,
+    ) -> TResponseInputItem | None: ...
+
+    async def clear_session(
+        self,
+        *,
+        wrapper: RunContextWrapper[Any] | None = None,
+    ) -> None: ...
+```
+
+Agents SDK がこの統合を有効にするのは、`get_items`、`add_items`、`pop_item`、`clear_session` のすべてで `wrapper` が宣言されている場合のみです。汎用の `**kwargs` パラメーターでは、このシグネチャチェックを満たしません。`wrapper` を省略している既存のセッション実装では、公開済みの呼び出し形式が維持され、変更せずに引き続き動作します。
+
 ## コミュニティによるセッション実装
 
-コミュニティによって、追加のセッション実装が開発されています。
+コミュニティは、追加のセッション実装を開発しています。
 
 | パッケージ | 説明 |
 |---------|-------------|
-| [openai-django-sessions](https://pypi.org/project/openai-django-sessions/) | Django がサポートする任意のデータベース（PostgreSQL、MySQL、SQLite など）向けの Django ORM ベースのセッション |
+| [openai-django-sessions](https://pypi.org/project/openai-django-sessions/) | Django がサポートする任意のデータベース（PostgreSQL、MySQL、SQLite など）向けの、Django ORM ベースのセッション |
 
 セッション実装を構築した場合は、ここに追加するためのドキュメント PR をぜひ送信してください。
 
@@ -702,14 +744,14 @@ result = await Runner.run(
 
 詳細な API ドキュメントについては、以下を参照してください。
 
--   [`Session`][agents.memory.session.Session] - プロトコルインターフェース
--   [`OpenAIConversationsSession`][agents.memory.OpenAIConversationsSession] - OpenAI Conversations API 実装
--   [`OpenAIResponsesCompactionSession`][agents.memory.openai_responses_compaction_session.OpenAIResponsesCompactionSession] - Responses API 圧縮ラッパー
--   [`SQLiteSession`][agents.memory.sqlite_session.SQLiteSession] - 基本的な SQLite 実装
--   [`AsyncSQLiteSession`][agents.extensions.memory.async_sqlite_session.AsyncSQLiteSession] - `aiosqlite` ベースの非同期 SQLite 実装
--   [`RedisSession`][agents.extensions.memory.redis_session.RedisSession] - Redis をバックエンドとするセッション実装
--   [`SQLAlchemySession`][agents.extensions.memory.sqlalchemy_session.SQLAlchemySession] - SQLAlchemy ベースの実装
--   [`MongoDBSession`][agents.extensions.memory.mongodb_session.MongoDBSession] - MongoDB をバックエンドとするセッション実装
--   [`DaprSession`][agents.extensions.memory.dapr_session.DaprSession] - Dapr 状態ストア実装
--   [`AdvancedSQLiteSession`][agents.extensions.memory.advanced_sqlite_session.AdvancedSQLiteSession] - 分岐と分析に対応した拡張 SQLite
--   [`EncryptedSession`][agents.extensions.memory.encrypt_session.EncryptedSession] - 任意のセッションに対応する暗号化ラッパー
+- [`Session`][agents.memory.session.Session] - プロトコルインターフェース
+- [`OpenAIConversationsSession`][agents.memory.OpenAIConversationsSession] - OpenAI Conversations API の実装
+- [`OpenAIResponsesCompactionSession`][agents.memory.openai_responses_compaction_session.OpenAIResponsesCompactionSession] - Responses API コンパクションラッパー
+- [`SQLiteSession`][agents.memory.sqlite_session.SQLiteSession] - 基本的な SQLite 実装
+- [`AsyncSQLiteSession`][agents.extensions.memory.async_sqlite_session.AsyncSQLiteSession] - `aiosqlite` ベースの非同期 SQLite 実装
+- [`RedisSession`][agents.extensions.memory.redis_session.RedisSession] - Redis ベースのセッション実装
+- [`SQLAlchemySession`][agents.extensions.memory.sqlalchemy_session.SQLAlchemySession] - SQLAlchemy ベースの実装
+- [`MongoDBSession`][agents.extensions.memory.mongodb_session.MongoDBSession] - MongoDB ベースのセッション実装
+- [`DaprSession`][agents.extensions.memory.dapr_session.DaprSession] - Dapr ステートストア実装
+- [`AdvancedSQLiteSession`][agents.extensions.memory.advanced_sqlite_session.AdvancedSQLiteSession] - 分岐と分析を備えた拡張 SQLite
+- [`EncryptedSession`][agents.extensions.memory.encrypt_session.EncryptedSession] - 任意のセッション向けの暗号化ラッパー

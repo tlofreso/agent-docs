@@ -12,6 +12,11 @@
 
 ### Internal
 
+* 👷 Remove legacy label check. PR [#2072](https://github.com/fastapi/sqlmodel/pull/2072) by [@tiangolo](https://github.com/tiangolo).
+* 🔐 Use PR Submit for pull requests. PR [#2071](https://github.com/fastapi/sqlmodel/pull/2071) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Use GitHub CLI for Git authentication. PR [#2070](https://github.com/fastapi/sqlmodel/pull/2070) by [@tiangolo](https://github.com/tiangolo).
+* 👷 Use PR Push commit identity. PR [#2069](https://github.com/fastapi/sqlmodel/pull/2069) by [@tiangolo](https://github.com/tiangolo).
+* 🔒 Replace pre-commit PAT with PR Push. PR [#2067](https://github.com/fastapi/sqlmodel/pull/2067) by [@tiangolo](https://github.com/tiangolo).
 * 👷 Remove Zensical docs cache. PR [#2065](https://github.com/fastapi/sqlmodel/pull/2065) by [@tiangolo](https://github.com/tiangolo).
 * 🔥 Remove the old Latest Changes workflow. PR [#2064](https://github.com/fastapi/sqlmodel/pull/2064) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group with 7 updates. PR [#2060](https://github.com/fastapi/sqlmodel/pull/2060) by [@dependabot[bot]](https://github.com/apps/dependabot).
