@@ -7,11 +7,7 @@ keywords: altair_chart, altair, chart, visualization, data, plot, graph, vega-li
 
 <Autofunction function="streamlit.altair_chart" />
 
-## Chart selections
-
 <Autofunction function="VegaLiteState" />
-
-<Autofunction function="DeltaGenerator.add_rows" deprecated={true} deprecatedText="We plan to deprecate <code>.add_rows()</code>. Please leave <a href='https://github.com/streamlit/streamlit/issues/13063'>feedback</a>." />
 
 ## Theming
 
@@ -125,3 +121,5 @@ Notice how the custom colors are still reflected in the chart, even when the Str
 <Cloud name="doc-altair-custom-colors" height="675px" />
 
 For many more examples of Altair charts with and without the Streamlit theme, check out the [altair.streamlit.app](https://altair.streamlit.app).
+
+<GitHubIssuesHint label="feature:st.altair_chart" name="st.altair_chart" />

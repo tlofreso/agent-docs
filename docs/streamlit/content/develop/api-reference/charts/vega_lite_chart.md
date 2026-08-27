@@ -7,11 +7,7 @@ keywords: vega_lite_chart, vega-lite, chart, visualization, data, plot, graph, i
 
 <Autofunction function="streamlit.vega_lite_chart" />
 
-## Chart selections
-
 <Autofunction function="VegaLiteState" />
-
-<Autofunction function="DeltaGenerator.add_rows" deprecated={true} deprecatedText="We plan to deprecate <code>.add_rows()</code>. Please leave <a href='https://github.com/streamlit/streamlit/issues/13063'>feedback</a>." />
 
 ## Theming
 
@@ -62,3 +58,5 @@ Click the tabs in the interactive app below to see the charts with the Streamlit
 <Cloud name="doc-vega-lite-theme" height="500px" />
 
 If you're wondering if your own customizations will still be taken into account, don't worry! You can still make changes to your chart configurations. In other words, although we now enable the Streamlit theme by default, you can overwrite it with custom colors or fonts. For example, if you want a chart line to be green instead of the default red, you can do it!
+
+<GitHubIssuesHint label="feature:st.vega_lite_chart" name="st.vega_lite_chart" />
