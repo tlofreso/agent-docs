@@ -971,7 +971,9 @@ Standard library type: [`collections.deque`][] (deprecated alias: [`typing.Deque
 
 <h4>Validation</h4>
 
-Values are first validated as a [list](#lists), and then passed to the [`deque`][collections.deque] constructor.
+Any iterable (except strings, bytes and mappings) is accepted and converted to a [`deque`][collections.deque],
+with each item validated against the parameter type. If the input is already a `deque` instance, its
+[`maxlen`][collections.deque.maxlen] attribute is preserved.
 
 <h4>Constraints</h4>
 
@@ -1539,7 +1541,8 @@ Standard library type: [`re.Pattern`][] (deprecated alias: [`typing.Pattern`][])
 In [Python mode](../concepts/serialization.md#python-mode), [`Pattern`][re.Pattern] instances are
 serialized as is.
 
-In [JSON mode](../concepts/serialization.md#json-mode), they are serialized as strings.
+In [JSON mode](../concepts/serialization.md#json-mode), they are serialized as strings (note that flags
+are currently *not* preserved).
 
 <!-- old anchor added for backwards compatibility -->
 <!-- markdownlint-disable-next-line no-empty-links -->
