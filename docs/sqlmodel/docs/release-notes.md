@@ -2,6 +2,12 @@
 
 ## Latest Changes
 
+## 0.0.46 (2026-09-22)
+
+### Fixes
+
+* 🐛 Fix timedelta arithmetic with UTC datetime fields. PR [#2101](https://github.com/fastapi/sqlmodel/pull/2101) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.0.45 (2026-09-21)
 
 ### Breaking Changes
