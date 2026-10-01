@@ -7,6 +7,28 @@ hide:
 
 ## Latest Changes
 
+### Docs
+
+* 📝 Update skill, use Asyncer for blocking code in threads. PR [#16420](https://github.com/fastapi/fastapi/pull/16420) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.142.2 (2026-09-30)
+
+### Fixes
+
+* 🐛 Allow startup when automatic OpenTelemetry configuration fails. PR [#16418](https://github.com/fastapi/fastapi/pull/16418) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.142.1 (2026-09-29)
+
+### Fixes
+
+* 🐛 Fix repeated endpoint wrapping in included routers. PR [#16414](https://github.com/fastapi/fastapi/pull/16414) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.142.0 (2026-09-29)
+
+### Features
+
+* ✨ Add native OpenTelemetry support. PR [#16403](https://github.com/fastapi/fastapi/pull/16403) by [@tiangolo](https://github.com/tiangolo).
+
 ### Refactors
 
 * 📱 Improve mobile responsiveness of conference rail. PR [#16196](https://github.com/fastapi/fastapi/pull/16196) by [@alejsdev](https://github.com/alejsdev).
@@ -35,6 +57,7 @@ hide:
 
 ### Internal
 
+* ✅ Fix frontend test timeout with Starlette Git. PR [#16408](https://github.com/fastapi/fastapi/pull/16408) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔧 Update sponsors: remove Permit.io. PR [#16406](https://github.com/fastapi/fastapi/pull/16406) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump anyio from 4.12.1 to 4.14.2. PR [#16375](https://github.com/fastapi/fastapi/pull/16375) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump the python-packages group across 1 directory with 15 updates. PR [#16285](https://github.com/fastapi/fastapi/pull/16285) by [@dependabot[bot]](https://github.com/apps/dependabot).
