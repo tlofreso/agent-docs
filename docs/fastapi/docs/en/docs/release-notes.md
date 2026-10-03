@@ -13,10 +13,24 @@ hide:
 
 ### Translations
 
+* 🌐 Update translations for fr (add-missing). PR [#16436](https://github.com/fastapi/fastapi/pull/16436) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for hi (add-missing). PR [#16435](https://github.com/fastapi/fastapi/pull/16435) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for tr (add-missing). PR [#16434](https://github.com/fastapi/fastapi/pull/16434) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh (add-missing). PR [#16433](https://github.com/fastapi/fastapi/pull/16433) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh-hant (add-missing). PR [#16432](https://github.com/fastapi/fastapi/pull/16432) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for pt (add-missing). PR [#16431](https://github.com/fastapi/fastapi/pull/16431) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for de (add-missing). PR [#16430](https://github.com/fastapi/fastapi/pull/16430) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for uk (add-missing). PR [#16429](https://github.com/fastapi/fastapi/pull/16429) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ja (add-missing). PR [#16428](https://github.com/fastapi/fastapi/pull/16428) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ko (add-missing). PR [#16425](https://github.com/fastapi/fastapi/pull/16425) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for es (add-missing). PR [#16426](https://github.com/fastapi/fastapi/pull/16426) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ru (add-missing). PR [#16427](https://github.com/fastapi/fastapi/pull/16427) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
 * 🌐 Update Russian LLM-prompt. PR [#16449](https://github.com/fastapi/fastapi/pull/16449) by [@YuriiMotov](https://github.com/YuriiMotov).
 
 ### Internal
 
+* 🔨 Use `gpt-6-astra` model for translations. PR [#16453](https://github.com/fastapi/fastapi/pull/16453) by [@YuriiMotov](https://github.com/YuriiMotov).
+* ⬆ Bump the python-packages group across 1 directory with 14 updates. PR [#16447](https://github.com/fastapi/fastapi/pull/16447) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump starlette from 1.6.0 to 1.7.0. PR [#16440](https://github.com/fastapi/fastapi/pull/16440) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pyjwt from 2.13.0 to 2.15.0. PR [#16423](https://github.com/fastapi/fastapi/pull/16423) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump gitpython from 3.1.60 to 3.1.62. PR [#16444](https://github.com/fastapi/fastapi/pull/16444) by [@dependabot[bot]](https://github.com/apps/dependabot).
