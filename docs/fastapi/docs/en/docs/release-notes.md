@@ -9,6 +9,8 @@ hide:
 
 ### Docs
 
+* 📝 Remove HTML title from newsletter to avoid the tooltip. PR [#16461](https://github.com/fastapi/fastapi/pull/16461) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Embed the FastAPI and friends newsletter signup form. PR [#16459](https://github.com/fastapi/fastapi/pull/16459) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Update skill, use Asyncer for blocking code in threads. PR [#16420](https://github.com/fastapi/fastapi/pull/16420) by [@tiangolo](https://github.com/tiangolo).
 
 ### Translations
@@ -29,6 +31,7 @@ hide:
 
 ### Internal
 
+* 👷 Fix deprecated command in `bump-pre-commit-hooks` workflow. PR [#16463](https://github.com/fastapi/fastapi/pull/16463) by [@YuriiMotov](https://github.com/YuriiMotov).
 * 🔧 Update sponsors: remove Render. PR [#16457](https://github.com/fastapi/fastapi/pull/16457) by [@tiangolo](https://github.com/tiangolo).
 * 🔨 Use `gpt-6-astra` model for translations. PR [#16453](https://github.com/fastapi/fastapi/pull/16453) by [@YuriiMotov](https://github.com/YuriiMotov).
 * ⬆ Bump the python-packages group across 1 directory with 14 updates. PR [#16447](https://github.com/fastapi/fastapi/pull/16447) by [@dependabot[bot]](https://github.com/apps/dependabot).
