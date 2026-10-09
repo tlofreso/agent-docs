@@ -7,6 +7,28 @@ hide:
 
 ## Latest Changes
 
+## 0.143.0 (2026-10-08)
+
+Automatic OpenTelemetry exporter setup is now opt-in. If you rely on FastAPI to configure exporters from `OTEL_*` environment variables, set `FASTAPI_OTEL_AUTO_CONFIGURE=true` or use `FastAPI(telemetry={"auto_configure": True})` to retain the previous behavior.
+
+Applications that configure their own providers and exporters require no changes. FastAPI Cloud enables automatic setup for you.
+
+### Breaking Changes
+
+* 💥 Require opt-in for automatic OpenTelemetry exporter setup. PR [#16476](https://github.com/fastapi/fastapi/pull/16476) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.142.4 (2026-10-07)
+
+### Fixes
+
+* 🐛 Isolate FastAPI telemetry for excluded requests. PR [#16470](https://github.com/fastapi/fastapi/pull/16470) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.142.3 (2026-10-07)
+
+### Fixes
+
+* 🐛 Cache OpenTelemetry tracers to preserve warning deduplication. PR [#16468](https://github.com/fastapi/fastapi/pull/16468) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 📝 Remove HTML title from newsletter to avoid the tooltip. PR [#16461](https://github.com/fastapi/fastapi/pull/16461) by [@tiangolo](https://github.com/tiangolo).
