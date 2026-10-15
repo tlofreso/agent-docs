@@ -7,6 +7,16 @@ hide:
 
 ## Latest Changes
 
+### Internal
+
+* ⬆ Bump werkzeug from 3.1.6 to 3.1.9. PR [#16464](https://github.com/fastapi/fastapi/pull/16464) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
+## 0.143.1 (2026-10-14)
+
+### Fixes
+
+* 🐛 Fix included route metadata in `iter_route_contexts()`. PR [#16484](https://github.com/fastapi/fastapi/pull/16484) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.143.0 (2026-10-08)
 
 Automatic OpenTelemetry exporter setup is now opt-in. If you rely on FastAPI to configure exporters from `OTEL_*` environment variables, set `FASTAPI_OTEL_AUTO_CONFIGURE=true` or use `FastAPI(telemetry={"auto_configure": True})` to retain the previous behavior.

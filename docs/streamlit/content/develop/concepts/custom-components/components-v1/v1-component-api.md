@@ -93,7 +93,7 @@ To make the process of creating bi-directional Streamlit Components easier, we'v
 
 To build a Streamlit Component, you need the following installed in your development environment:
 
-- Python 3.10 - Python 3.14
+- Python 3.11 - Python 3.15
 - Streamlit
 - [nodejs](https://nodejs.org/en/)
 - [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
@@ -272,7 +272,7 @@ of personal preference.
 npm add baseui
 ```
 
-- To build a static version of your component, run `npm run export`. See [Prepare your Component](publish#prepare-your-component) for more information
+- To build a static version of your component, run `npm run export`. See [Prepare your Component](/develop/concepts/custom-components/publish#prepare-your-component) for more information
 
 ### Python API
 
