@@ -7,8 +7,34 @@ hide:
 
 ## Latest Changes
 
+### Docs
+
+* 🎨 Update Python format in Markdown with Ruff. PR [#16505](https://github.com/fastapi/fastapi/pull/16505) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.143.2 (2026-10-15)
+
+### Fixes
+
+* 🐛 Fix blocking frontend fallback file checks. PR [#16503](https://github.com/fastapi/fastapi/pull/16503) by [@tiangolo](https://github.com/tiangolo).
+
+### Translations
+
+* 🌐 Update translations for zh-hant (update-outdated). PR [#16500](https://github.com/fastapi/fastapi/pull/16500) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ja (update-outdated). PR [#16499](https://github.com/fastapi/fastapi/pull/16499) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh (update-outdated). PR [#16501](https://github.com/fastapi/fastapi/pull/16501) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for hi (update-outdated). PR [#16498](https://github.com/fastapi/fastapi/pull/16498) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for es (update-outdated). PR [#16497](https://github.com/fastapi/fastapi/pull/16497) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for fr (update-outdated). PR [#16495](https://github.com/fastapi/fastapi/pull/16495) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ko (update-outdated). PR [#16496](https://github.com/fastapi/fastapi/pull/16496) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for de (update-outdated). PR [#16493](https://github.com/fastapi/fastapi/pull/16493) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for uk (update-outdated). PR [#16494](https://github.com/fastapi/fastapi/pull/16494) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for tr (update-outdated). PR [#16490](https://github.com/fastapi/fastapi/pull/16490) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for pt (update-outdated). PR [#16491](https://github.com/fastapi/fastapi/pull/16491) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ru (update-outdated). PR [#16492](https://github.com/fastapi/fastapi/pull/16492) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+
 ### Internal
 
+* ⬆ Bump pydantic-ai-slim from 2.49.0 to 2.53.0. PR [#16487](https://github.com/fastapi/fastapi/pull/16487) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump werkzeug from 3.1.6 to 3.1.9. PR [#16464](https://github.com/fastapi/fastapi/pull/16464) by [@dependabot[bot]](https://github.com/apps/dependabot).
 
 ## 0.143.1 (2026-10-14)
@@ -4649,23 +4675,19 @@ def get_current_user(token: str):
 
 
 @app.get("/items/")
-def read_items(user: User = Depends(get_current_user)):
-    ...
+def read_items(user: User = Depends(get_current_user)): ...
 
 
 @app.post("/items/")
-def create_item(*, user: User = Depends(get_current_user), item: Item):
-    ...
+def create_item(*, user: User = Depends(get_current_user), item: Item): ...
 
 
 @app.get("/items/{item_id}")
-def read_item(*, user: User = Depends(get_current_user), item_id: int):
-    ...
+def read_item(*, user: User = Depends(get_current_user), item_id: int): ...
 
 
 @app.delete("/items/{item_id}")
-def delete_item(*, user: User = Depends(get_current_user), item_id: int):
-    ...
+def delete_item(*, user: User = Depends(get_current_user), item_id: int): ...
 ```
 
 There's a bit of code duplication for the dependency:
@@ -4689,23 +4711,19 @@ CurrentUser = Annotated[User, Depends(get_current_user)]
 
 
 @app.get("/items/")
-def read_items(user: CurrentUser):
-    ...
+def read_items(user: CurrentUser): ...
 
 
 @app.post("/items/")
-def create_item(user: CurrentUser, item: Item):
-    ...
+def create_item(user: CurrentUser, item: Item): ...
 
 
 @app.get("/items/{item_id}")
-def read_item(user: CurrentUser, item_id: int):
-    ...
+def read_item(user: CurrentUser, item_id: int): ...
 
 
 @app.delete("/items/{item_id}")
-def delete_item(user: CurrentUser, item_id: int):
-    ...
+def delete_item(user: CurrentUser, item_id: int): ...
 ```
 
 ...and `CurrentUser` has all the typing information as `User`, so your editor will work as expected (autocompletion and everything), and **FastAPI** will be able to understand the dependency defined in `Annotated`. 😎
@@ -5297,12 +5315,15 @@ For example, if you have an app like this:
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+
 class Item(BaseModel):
     name: str
     price: Optional[float] = None
     owner_ids: Optional[List[int]] = None
 
+
 app = FastAPI()
+
 
 @app.get("/items/invalidnone", response_model=Item)
 def get_invalid_none():
@@ -5317,12 +5338,15 @@ You could also be implicitly returning `None` without realizing, for example:
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+
 class Item(BaseModel):
     name: str
     price: Optional[float] = None
     owner_ids: Optional[List[int]] = None
 
+
 app = FastAPI()
+
 
 @app.get("/items/invalidnone", response_model=Item)
 def get_invalid_none():
@@ -5339,12 +5363,15 @@ from typing import Union
 from fastapi import FastAPI
 from pydantic import BaseModel
 
+
 class Item(BaseModel):
     name: str
     price: Optional[float] = None
     owner_ids: Optional[List[int]] = None
 
+
 app = FastAPI()
+
 
 @app.get("/items/invalidnone", response_model=Union[Item, None])
 def get_invalid_none():
@@ -5716,6 +5743,7 @@ from typing import Any, Dict, Optional
 legacy_request_state_context_var: ContextVar[Optional[Dict[str, Any]]] = ContextVar(
     "legacy_request_state_context_var", default=None
 )
+
 
 async def set_up_request_state_dependency():
     request_state = {"user": "deadpond"}
