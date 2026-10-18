@@ -7,6 +7,18 @@ hide:
 
 ## Latest Changes
 
+## 0.143.4 (2026-10-17)
+
+### Upgrades
+
+* ⬆️ Add httpx2 to optional dependencies. PR [#16512](https://github.com/fastapi/fastapi/pull/16512) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.143.3 (2026-10-16)
+
+### Fixes
+
+* 🐛 Fix non-finite float serialization in JSONL and SSE streams. PR [#16509](https://github.com/fastapi/fastapi/pull/16509) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 🎨 Update Python format in Markdown with Ruff. PR [#16505](https://github.com/fastapi/fastapi/pull/16505) by [@tiangolo](https://github.com/tiangolo).
