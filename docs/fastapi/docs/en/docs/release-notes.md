@@ -7,6 +7,151 @@ hide:
 
 ## Latest Changes
 
+## 0.156.4 (2026-10-21)
+
+### Fixes
+
+* 🐛 Fix `AliasChoices` for named JSON body parameters. PR [#16559](https://github.com/fastapi/fastapi/pull/16559) by [@tiangolo](https://github.com/tiangolo).
+* 🐛 Fix `AliasChoices` extraction for form models. PR [#16557](https://github.com/fastapi/fastapi/pull/16557) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.3 (2026-10-20)
+
+### Fixes
+
+* 🐛 Fix `AliasChoices` for query parameters, headers, and cookies. PR [#16555](https://github.com/fastapi/fastapi/pull/16555) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.2 (2026-10-20)
+
+### Fixes
+
+* 🐛 Preserve Pydantic field metadata in inferred request parameters. PR [#16553](https://github.com/fastapi/fastapi/pull/16553) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.1 (2026-10-20)
+
+### Fixes
+
+* 🐛 Preserve Pydantic field metadata when request options are omitted. PR [#16549](https://github.com/fastapi/fastapi/pull/16549) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.0 (2026-10-20)
+
+### Fixes
+
+* 🐛 Preserve Pydantic `Field()` attributes in request parameters. PR [#16547](https://github.com/fastapi/fastapi/pull/16547) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.155.0 (2026-10-20)
+
+The deprecated `**extra` keyword arguments have been removed from `Path`, `Query`, `Header`, `Cookie`, `Body`, `Form`, and `File`. Unknown keyword arguments now raise `TypeError`. For additional JSON Schema properties, replace, for example, `Query(custom="value")` with `Query(json_schema_extra={"custom": "value"})`.
+
+### Breaking Changes
+
+* 🔥 Remove deprecated `**extra` from request parameters. PR [#16545](https://github.com/fastapi/fastapi/pull/16545) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.154.0 (2026-10-20)
+
+### Features
+
+* ✨ Add Pydantic validation options to request parameters. PR [#16542](https://github.com/fastapi/fastapi/pull/16542) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.153.0 (2026-10-20)
+
+Unions of form models now apply the same browser form handling as individual models. Empty scalar fields use defaults or produce missing-field errors, empty list items are preserved, omitted boolean fields become `False`, and unselected files are treated as missing. JSON request bodies are unchanged.
+
+### Fixes
+
+* 🐛 Apply browser form handling to unions of Pydantic models. PR [#16540](https://github.com/fastapi/fastapi/pull/16540) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.152.0 (2026-10-20)
+
+Validation errors for header parameter models now report the HTTP header name, such as `int-val`, instead of the Python field name, `int_val`. Explicit aliases, `Header(convert_underscores=False)`, and Pydantic models with `loc_by_alias=False` keep their existing behavior.
+
+### Fixes
+
+* 🐛 Fix header model validation errors to report HTTP header names. PR [#16538](https://github.com/fastapi/fastapi/pull/16538) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.151.0 (2026-10-20)
+
+JSON request bodies now distinguish an explicit `null` from an omitted value. For individual `Body` parameters, `null` is validated as `None`: nullable types accept it, and non-nullable types reject it even when a default is defined. Defaults and default factories apply only when the value is omitted. This applies both to parameters inside JSON objects and to parameters representing the entire body. Clients that used `null` to request a default should omit the value instead.
+
+When a JSON object is expected because of `Body(embed=True)` or multiple body parameters, sending `null` as the entire body now returns a validation error.
+
+### Breaking Changes
+
+* 🐛 Distinguish JSON null from omitted body values. PR [#16536](https://github.com/fastapi/fastapi/pull/16536) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.150.0 (2026-10-20)
+
+When no file is selected, browsers submit a file part with an empty filename and empty content. FastAPI now treats this as missing: required file fields return a validation error, and fields with defaults or default factories use them. Unselected inputs are ignored in lists of files. Named zero-byte files are still accepted.
+
+### Breaking Changes
+
+* 🐛 Treat unselected browser file inputs as missing. PR [#16534](https://github.com/fastapi/fastapi/pull/16534) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.149.0 (2026-10-19)
+
+Browsers submit empty text inputs as empty strings (`""`). FastAPI now treats empty scalar form values as missing in form models, matching individual `Form` parameters. Required fields return a validation error. Fields with defaults or default factories use them and remain unset in `model_dump(exclude_unset=True)`.
+
+Empty strings inside lists are preserved. Omitted boolean form fields still become `False`. JSON requests and direct Pydantic validation are unchanged.
+
+### Breaking Changes
+
+* 🐛 Treat empty scalar values as missing in form models. PR [#16529](https://github.com/fastapi/fastapi/pull/16529) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.148.0 (2026-10-19)
+
+Defaults for omitted `Query`, `Header`, `Cookie`, and `Form` parameters and model fields are no longer treated as user input. Defaults are not validated unless `validate_default=True` is enabled. If you rely on validators running for omitted values, enable default validation with `Field(validate_default=True)` for model fields or, for example, `Query(validate_default=True)` for individual parameters. `Body(validate_default=True)` is now honored too.
+
+For parameter models, applying a default no longer marks a field as explicitly set, so `model_dump(exclude_unset=True)` excludes it. Default factories run once, and validation errors no longer include injected defaults in `input`.
+
+Omitted boolean form fields still become `False` and count as explicitly set.
+
+### Breaking Changes
+
+* 🐛 Fix default handling for request parameters and models. PR [#16527](https://github.com/fastapi/fastapi/pull/16527) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.147.0 (2026-10-19)
+
+Omitted `bool` and `bool | None` form fields are now interpreted as `False`, matching unchecked HTML checkboxes. This applies to individual `Form` parameters and form models, including required fields and fields with defaults of `True` or `None`. The inferred value is considered explicitly set, including in `model_dump(exclude_unset=True)`.
+
+JSON requests and direct Pydantic validation are unchanged. See [Boolean Form Fields](https://fastapi.tiangolo.com/tutorial/request-forms/#boolean-form-fields).
+
+### Breaking Changes
+
+* 🐛 Treat omitted boolean form fields as False. PR [#16523](https://github.com/fastapi/fastapi/pull/16523) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ✅ Add tests for parameter defaults, nullability, and browser form behavior. PR [#14829](https://github.com/fastapi/fastapi/pull/14829) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.146.0 (2026-10-18)
+
+The `root_path` parameter in `FastAPI()` is deprecated. Configure the server with `fastapi run --root-path /api/v1` instead.
+
+### Breaking Changes
+
+* 🗑️ Deprecate the `root_path` parameter in `FastAPI`. PR [#16520](https://github.com/fastapi/fastapi/pull/16520) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.145.0 (2026-10-18)
+
+### Breaking Changes
+
+* 🔥 Remove deprecated `openapi_prefix` and unused `**extra` from `FastAPI`. PR [#16518](https://github.com/fastapi/fastapi/pull/16518) by [@tiangolo](https://github.com/tiangolo).
+
+### Docs
+
+* 📝 Document URL paths in templates. PR [#16517](https://github.com/fastapi/fastapi/pull/16517) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.144.0 (2026-10-18)
+
+### Features
+
+* ✨ Add WebSocket support to security dependencies. PR [#10147](https://github.com/fastapi/fastapi/pull/10147) by [@mnixry](https://github.com/mnixry).
+
+## 0.143.5 (2026-10-18)
+
+### Fixes
+
+* 🐛 Fix handling of empty value for `byte` file list parameter. PR [#9383](https://github.com/fastapi/fastapi/pull/9383) by [@Viicos](https://github.com/Viicos).
+
 ## 0.143.4 (2026-10-17)
 
 ### Upgrades
