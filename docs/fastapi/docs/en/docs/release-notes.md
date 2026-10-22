@@ -7,6 +7,75 @@ hide:
 
 ## Latest Changes
 
+## 0.159.1 (2026-10-21)
+
+### Features
+
+* ✨ Add support for optional unions of form models. PR [#16586](https://github.com/fastapi/fastapi/pull/16586) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.159.0 (2026-10-21)
+
+### Features
+
+* ✨ Add support for optional query, header, and cookie parameter models. PR [#16584](https://github.com/fastapi/fastapi/pull/16584) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.158.2 (2026-10-21)
+
+### Features
+
+* ✨ Add support for optional form models. PR [#16582](https://github.com/fastapi/fastapi/pull/16582) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.158.1 (2026-10-21)
+
+### Fixes
+
+* 🐛 Preserve form media types in OpenAPI. PR [#16579](https://github.com/fastapi/fastapi/pull/16579) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.158.0 (2026-10-21)
+
+### Features
+
+* ✨ Add support for combining form models. PR [#16577](https://github.com/fastapi/fastapi/pull/16577) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.157.0 (2026-10-21)
+
+### Features
+
+* ✨ Add support for combining query, header, and cookie parameter models. PR [#16573](https://github.com/fastapi/fastapi/pull/16573) by [@tiangolo](https://github.com/tiangolo).
+
+### Docs
+
+* 📝 Clarify boolean query parameter parsing. PR [#16569](https://github.com/fastapi/fastapi/pull/16569) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Clarify nullable query parameters and path parameter defaults. PR [#16568](https://github.com/fastapi/fastapi/pull/16568) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* 👷 Remove translation notifications and approval labeling. PR [#16570](https://github.com/fastapi/fastapi/pull/16570) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.8 (2026-10-21)
+
+### Fixes
+
+* 🐛 Preserve uploaded file positions when converting to `bytes`. PR [#16566](https://github.com/fastapi/fastapi/pull/16566) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.7 (2026-10-21)
+
+### Fixes
+
+* 🐛 Fix validation error locations for form and file `AliasChoices`. PR [#16564](https://github.com/fastapi/fastapi/pull/16564) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.6 (2026-10-21)
+
+### Fixes
+
+* 🐛 Respect model alias settings for query, header, and cookie parameters. PR [#16562](https://github.com/fastapi/fastapi/pull/16562) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.156.5 (2026-10-21)
+
+### Fixes
+
+* 🐛 Fix `AliasChoices` for path parameters. PR [#16560](https://github.com/fastapi/fastapi/pull/16560) by [@tiangolo](https://github.com/tiangolo).
+
 ## 0.156.4 (2026-10-21)
 
 ### Fixes
