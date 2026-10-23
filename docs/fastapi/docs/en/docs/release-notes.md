@@ -7,6 +7,32 @@ hide:
 
 ## Latest Changes
 
+## 0.161.1 (2026-10-22)
+
+### Fixes
+
+* 🐛 Fix OpenAPI schemas for standalone nullable form unions. PR [#16598](https://github.com/fastapi/fastapi/pull/16598) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.161.0 (2026-10-22)
+
+### Features
+
+* ✨ Add support for combining unions of form models. PR [#16596](https://github.com/fastapi/fastapi/pull/16596) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.160.0 (2026-10-22)
+
+Query, header, cookie, and form parameter models now apply their `extra` configuration to all submitted fields in the same parameter location, consistent with Pydantic behavior. This includes fields declared in other models, individual parameters, or dependencies, which were previously excluded.
+
+With `extra="forbid"`, fields outside the model are rejected even if another parameter declares them. With `extra="allow"`, those fields are included as model extras. With the default `extra="ignore"`, they are ignored.
+
+### Breaking Changes
+
+* 🐛 Apply each parameter model's `extra` configuration to sibling fields. PR [#16594](https://github.com/fastapi/fastapi/pull/16594) by [@tiangolo](https://github.com/tiangolo).
+
+### Internal
+
+* ⬆ Bump certifi from 2026.1.4 to 2026.10.19. PR [#16571](https://github.com/fastapi/fastapi/pull/16571) by [@dependabot[bot]](https://github.com/apps/dependabot).
+
 ## 0.159.1 (2026-10-21)
 
 ### Features
