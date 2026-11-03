@@ -7,8 +7,27 @@ hide:
 
 ## Latest Changes
 
+### Translations
+
+* 🌐 Update translations for zh-hant (update-outdated). PR [#16654](https://github.com/fastapi/fastapi/pull/16654) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for uk (update-outdated). PR [#16655](https://github.com/fastapi/fastapi/pull/16655) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for de (update-outdated). PR [#16652](https://github.com/fastapi/fastapi/pull/16652) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for pt (update-outdated). PR [#16653](https://github.com/fastapi/fastapi/pull/16653) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for fr (update-outdated). PR [#16649](https://github.com/fastapi/fastapi/pull/16649) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for tr (update-outdated). PR [#16651](https://github.com/fastapi/fastapi/pull/16651) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ja (update-outdated). PR [#16648](https://github.com/fastapi/fastapi/pull/16648) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh (update-outdated). PR [#16644](https://github.com/fastapi/fastapi/pull/16644) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for hi (update-outdated). PR [#16647](https://github.com/fastapi/fastapi/pull/16647) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for es (update-outdated). PR [#16645](https://github.com/fastapi/fastapi/pull/16645) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ru (update-outdated). PR [#16650](https://github.com/fastapi/fastapi/pull/16650) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+
 ### Internal
 
+* 👥 Update FastAPI People - Sponsors. PR [#16656](https://github.com/fastapi/fastapi/pull/16656) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 👥 Update FastAPI GitHub topic repositories. PR [#16660](https://github.com/fastapi/fastapi/pull/16660) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* ⬆ Bump the github-actions group with 7 updates. PR [#16658](https://github.com/fastapi/fastapi/pull/16658) by [@dependabot[bot]](https://github.com/apps/dependabot).
+* ⬆ Bump pre-commit hooks. PR [#16659](https://github.com/fastapi/fastapi/pull/16659) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* ⬆ Bump authlib from 1.7.2 to 1.9.1. PR [#16637](https://github.com/fastapi/fastapi/pull/16637) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 🔧 Update sponsors: add MicroAuth. PR [#16641](https://github.com/fastapi/fastapi/pull/16641) by [@tiangolo](https://github.com/tiangolo).
 * 🔧 Pin pytest below 9.2 for pytest-xdist compatibility. PR [#16642](https://github.com/fastapi/fastapi/pull/16642) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump graphql-core from 3.2.7 to 3.3.1. PR [#16613](https://github.com/fastapi/fastapi/pull/16613) by [@dependabot[bot]](https://github.com/apps/dependabot).
