@@ -23,6 +23,9 @@ hide:
 
 ### Internal
 
+* 📝 Update FastAPI Cloud docs banner for general availability. PR [#16684](https://github.com/fastapi/fastapi/pull/16684) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Update sponsors: add Encore. PR [#16683](https://github.com/fastapi/fastapi/pull/16683) by [@tiangolo](https://github.com/tiangolo).
+* 🔥 Remove conference rail component and related styles. PR [#16679](https://github.com/fastapi/fastapi/pull/16679) by [@alejsdev](https://github.com/alejsdev).
 * 👥 Update FastAPI People - Sponsors. PR [#16656](https://github.com/fastapi/fastapi/pull/16656) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
 * 👥 Update FastAPI GitHub topic repositories. PR [#16660](https://github.com/fastapi/fastapi/pull/16660) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
 * ⬆ Bump the github-actions group with 7 updates. PR [#16658](https://github.com/fastapi/fastapi/pull/16658) by [@dependabot[bot]](https://github.com/apps/dependabot).
