@@ -7,11 +7,31 @@ hide:
 
 ## Latest Changes
 
+### Upgrades
+
+* ⬆️ Upgrade `markdown-include-variants` to 0.0.10. PR [#16705](https://github.com/fastapi/fastapi/pull/16705) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
 * 🎨 Use the Zensical modern theme for docs. PR [#16701](https://github.com/fastapi/fastapi/pull/16701) by [@tiangolo](https://github.com/tiangolo).
 * 🐛 Fix AI coding agent notice links in previews. PR [#16700](https://github.com/fastapi/fastapi/pull/16700) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add an AI coding agent notice to the docs. PR [#16699](https://github.com/fastapi/fastapi/pull/16699) by [@tiangolo](https://github.com/tiangolo).
+
+### Translations
+
+* 🌐 Update Traditional Chinese translations. PR [#16719](https://github.com/fastapi/fastapi/pull/16719) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Chinese translations. PR [#16718](https://github.com/fastapi/fastapi/pull/16718) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Ukrainian translations. PR [#16717](https://github.com/fastapi/fastapi/pull/16717) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Turkish translations. PR [#16716](https://github.com/fastapi/fastapi/pull/16716) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Russian translations. PR [#16715](https://github.com/fastapi/fastapi/pull/16715) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Portuguese translations. PR [#16714](https://github.com/fastapi/fastapi/pull/16714) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Korean translations. PR [#16713](https://github.com/fastapi/fastapi/pull/16713) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Japanese translations. PR [#16712](https://github.com/fastapi/fastapi/pull/16712) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Hindi translations. PR [#16711](https://github.com/fastapi/fastapi/pull/16711) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update French translations. PR [#16710](https://github.com/fastapi/fastapi/pull/16710) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Spanish translations. PR [#16709](https://github.com/fastapi/fastapi/pull/16709) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update German translations. PR [#16708](https://github.com/fastapi/fastapi/pull/16708) by [@tiangolo](https://github.com/tiangolo).
+* 🌐 Update Korean translations to match the English docs. PR [#16706](https://github.com/fastapi/fastapi/pull/16706) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.162.2 (2026-11-07)
 
