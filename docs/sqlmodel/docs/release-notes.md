@@ -2,8 +2,14 @@
 
 ## Latest Changes
 
+### Upgrades
+
+* ⬆️ Upgrade markdown-include-variants to 0.0.10. PR [#2130](https://github.com/fastapi/sqlmodel/pull/2130) by [@tiangolo](https://github.com/tiangolo).
+
 ### Docs
 
+* 📝 Use Annotated for FastAPI parameters. PR [#2133](https://github.com/fastapi/sqlmodel/pull/2133) by [@tiangolo](https://github.com/tiangolo).
+* 📝 Adopt unversioned documentation snippets. PR [#2132](https://github.com/fastapi/sqlmodel/pull/2132) by [@tiangolo](https://github.com/tiangolo).
 * 🎨 Use the Zensical modern theme for docs. PR [#2128](https://github.com/fastapi/sqlmodel/pull/2128) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Add AI development guidance and coding agent notices. PR [#2127](https://github.com/fastapi/sqlmodel/pull/2127) by [@tiangolo](https://github.com/tiangolo).
 * 📝 Hide formatting guards in HTML comments. PR [#2115](https://github.com/fastapi/sqlmodel/pull/2115) by [@tiangolo](https://github.com/tiangolo).
@@ -11,6 +17,9 @@
 
 ### Internal
 
+* 🔥 Remove obsolete docs snippet commands. PR [#2135](https://github.com/fastapi/sqlmodel/pull/2135) by [@tiangolo](https://github.com/tiangolo).
+* 🔧 Add an agent skills note to GitHub releases. PR [#2134](https://github.com/fastapi/sqlmodel/pull/2134) by [@tiangolo](https://github.com/tiangolo).
+* 🐛 Preserve snippet variants when cleaning up docs sources. PR [#2131](https://github.com/fastapi/sqlmodel/pull/2131) by [@tiangolo](https://github.com/tiangolo).
 * ⬆ Bump the python-packages group across 1 directory with 9 updates. PR [#2123](https://github.com/fastapi/sqlmodel/pull/2123) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * ⬆ Bump pre-commit hooks. PR [#2120](https://github.com/fastapi/sqlmodel/pull/2120) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
 * ⬆ Bump sqlalchemy from 2.0.54 to 2.0.55 and from 2.1.3 to 2.1.6. PR [#2124](https://github.com/fastapi/sqlmodel/pull/2124) by [@dependabot[bot]](https://github.com/apps/dependabot).
