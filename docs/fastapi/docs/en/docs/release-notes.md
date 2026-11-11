@@ -7,8 +7,22 @@ hide:
 
 ## Latest Changes
 
+### Internal
+
+* ➖ Drop `pydantic-ai` dependency, use `pydantic-ai-slim[openai]` instead. PR [#16526](https://github.com/fastapi/fastapi/pull/16526) by [@YuriiMotov](https://github.com/YuriiMotov).
+
+## 0.162.4 (2026-11-10)
+
+### Fixes
+
+* 🐛 Require AnyIO 4.1.0 or newer at runtime. PR [#16730](https://github.com/fastapi/fastapi/pull/16730) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.162.3 (2026-11-10)
+
 ### Upgrades
 
+* ⬆️ Add support for Python 3.15. PR [#16727](https://github.com/fastapi/fastapi/pull/16727) by [@tiangolo](https://github.com/tiangolo).
+* ⬆️ Update locked Pydantic to 2.14.3. PR [#16728](https://github.com/fastapi/fastapi/pull/16728) by [@tiangolo](https://github.com/tiangolo).
 * ⬆️ Upgrade `markdown-include-variants` to 0.0.10. PR [#16705](https://github.com/fastapi/fastapi/pull/16705) by [@tiangolo](https://github.com/tiangolo).
 
 ### Docs
