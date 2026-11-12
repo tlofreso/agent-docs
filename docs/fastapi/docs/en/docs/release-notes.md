@@ -7,6 +7,12 @@ hide:
 
 ## Latest Changes
 
+## 0.162.5 (2026-11-11)
+
+### Fixes
+
+* 🐛 Fix synchronous dependency cleanup on cancellation. PR [#16734](https://github.com/fastapi/fastapi/pull/16734) by [@tiangolo](https://github.com/tiangolo).
+
 ### Internal
 
 * ➖ Drop `pydantic-ai` dependency, use `pydantic-ai-slim[openai]` instead. PR [#16526](https://github.com/fastapi/fastapi/pull/16526) by [@YuriiMotov](https://github.com/YuriiMotov).
