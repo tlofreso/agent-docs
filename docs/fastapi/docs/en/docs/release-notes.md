@@ -7,6 +7,16 @@ hide:
 
 ## Latest Changes
 
+### Internal
+
+* 👷 Limit the full test matrix to Python 3.15. PR [#16776](https://github.com/fastapi/fastapi/pull/16776) by [@tiangolo](https://github.com/tiangolo).
+
+## 0.163.1 (2026-11-15)
+
+### Fixes
+
+* 🐛 Fix OpenAPI for response model with nested computed field. PR [#14490](https://github.com/fastapi/fastapi/pull/14490) by [@YuriiMotov](https://github.com/YuriiMotov).
+
 ## 0.163.0 (2026-11-14)
 
 ### Features
