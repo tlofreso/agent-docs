@@ -7,8 +7,35 @@ hide:
 
 ## Latest Changes
 
+### Translations
+
+* 🌐 Update translations for ko (update-outdated). PR [#16760](https://github.com/fastapi/fastapi/pull/16760) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for tr (add-missing). PR [#16772](https://github.com/fastapi/fastapi/pull/16772) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for pt (add-missing). PR [#16771](https://github.com/fastapi/fastapi/pull/16771) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for uk (update-outdated). PR [#16773](https://github.com/fastapi/fastapi/pull/16773) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for uk (add-missing). PR [#16769](https://github.com/fastapi/fastapi/pull/16769) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for fr (add-missing). PR [#16750](https://github.com/fastapi/fastapi/pull/16750) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ja (update-outdated). PR [#16770](https://github.com/fastapi/fastapi/pull/16770) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for tr (update-outdated). PR [#16765](https://github.com/fastapi/fastapi/pull/16765) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh-hant (update-outdated). PR [#16764](https://github.com/fastapi/fastapi/pull/16764) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh-hant (add-missing). PR [#16768](https://github.com/fastapi/fastapi/pull/16768) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for hi (update-outdated). PR [#16766](https://github.com/fastapi/fastapi/pull/16766) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for de (update-outdated). PR [#16762](https://github.com/fastapi/fastapi/pull/16762) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh (add-missing). PR [#16756](https://github.com/fastapi/fastapi/pull/16756) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for es (update-outdated). PR [#16758](https://github.com/fastapi/fastapi/pull/16758) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for es (add-missing). PR [#16751](https://github.com/fastapi/fastapi/pull/16751) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for zh (update-outdated). PR [#16767](https://github.com/fastapi/fastapi/pull/16767) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ko (add-missing). PR [#16755](https://github.com/fastapi/fastapi/pull/16755) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for pt (update-outdated). PR [#16761](https://github.com/fastapi/fastapi/pull/16761) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for hi (add-missing). PR [#16753](https://github.com/fastapi/fastapi/pull/16753) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ja (add-missing). PR [#16752](https://github.com/fastapi/fastapi/pull/16752) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ru (add-missing). PR [#16754](https://github.com/fastapi/fastapi/pull/16754) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for de (add-missing). PR [#16757](https://github.com/fastapi/fastapi/pull/16757) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+* 🌐 Update translations for ru (update-outdated). PR [#16763](https://github.com/fastapi/fastapi/pull/16763) by [@pr-submit[bot]](https://github.com/apps/pr-submit).
+
 ### Internal
 
+* ⬆ Bump opentelemetry-api from 1.45.1 to 1.45.2. PR [#16743](https://github.com/fastapi/fastapi/pull/16743) by [@dependabot[bot]](https://github.com/apps/dependabot).
 * 👷 Limit the full test matrix to Python 3.15. PR [#16776](https://github.com/fastapi/fastapi/pull/16776) by [@tiangolo](https://github.com/tiangolo).
 
 ## 0.163.1 (2026-11-15)
